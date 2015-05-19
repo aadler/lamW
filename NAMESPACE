@@ -1,0 +1,3 @@
+useDynLib(lamW)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
