@@ -1,6 +1,6 @@
 Package: lamW
 Type: Package
-Title: Lambert-W function
+Title: Lambert-W Function
 Version: 0.0-1
 Date: 2015-05-19
 Authors@R: c(person(given="Avraham", family="Adler", role=c("aut", "cph", "cre"), email="Avraham.Adler@gmail.com"))

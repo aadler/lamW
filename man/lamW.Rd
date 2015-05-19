@@ -2,7 +2,7 @@
 \alias{lambertW0}
 \alias{lambertWm1}
 \title{
-Lambert-W function
+Lambert-W Function
 }
 \description{
 The Lambert-W function is defined as the multivalued inverse of the function \eqn{z = f(W) = We^w}{z = f(W) = W*exp(W)}. The function has two branches. The principal branch is defined on the interval \eqn{[-\frac{1}{e}, \infty)}{[-1/e, Infinity)} and is always greater than -1. The second branch is defined on the interval \eqn{[-\frac{1}{e}, 0)}{[-1/e, 0)} and is always less than -1. The real-valed function is not defined for values less than \eqn{-\frac{1}{e}}{-1/e}.
@@ -26,7 +26,7 @@ Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On th
 Avraham Adler \code{<Avraham.Adler@gmail.com>}
 }
 \seealso{
-\link{NumericalMathematics} for similar functionality. The \code{\link{gsl}} package will include the Lambert-W function, as it is found in the \acronym{GSL}.
+This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \code{gsl} package without the need for obtaining or installing the entire \acronym{GSL} library.
 }
 \examples{
 lambertW0(exp(1))      ## Should equal 1, as 1 * exp(1) = e.
