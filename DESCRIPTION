@@ -10,3 +10,5 @@ Imports: Rcpp (>= 0.11.6)
 LinkingTo: Rcpp
 Suggests: testthat
 NeedsCompilation: yes
+URL: https://bitbucket.org/aadler/lamw
+BugReports: https://bitbucket.org/aadler/lamw/issues
