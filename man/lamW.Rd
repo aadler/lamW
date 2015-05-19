@@ -26,7 +26,7 @@ Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On th
 Avraham Adler \code{<Avraham.Adler@gmail.com>}
 }
 \seealso{
-This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \code{gsl} package without the need for obtaining or installing the entire \acronym{GSL} library.
+This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \code{gsl} package without having to obtain or install the \acronym{GSL}. It also provides similar functionality to the \code{\link[LambertW]{W}} function in the \code{LambertW} package, which itself imports the \code{gsl} package.
 }
 \examples{
 lambertW0(exp(1))      ## Should equal 1, as 1 * exp(1) = e.
