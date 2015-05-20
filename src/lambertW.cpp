@@ -42,6 +42,8 @@ const double M_1_E = 1.0 / M_E;
   f(W)    = W * exp(W) - x
   f'(W)   = W * exp(W) + exp(W)       = exp(W) * (W + 1)
   f''(W)  = exp(W) + (W + 1) * exp(W) = exp(W) * (W + 2)
+  Halley Step:
+   W_{n+1} = W_n - {2 * f(W_n) * f'(W_n)} / {2 * [f'(W_n)]^2 - f(W_n) * f''(W_n)}
 */
 
 double HalleyIter(double x, double w_guess){
