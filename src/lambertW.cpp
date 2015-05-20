@@ -36,12 +36,19 @@ using namespace Rcpp;
 const double EPS = 2.2204460492503131e-16;
 const double M_1_E = 1.0 / M_E;
 
-/* Halley Iteration */
+/* Halley Iteration
+  Given x, we want to find W such that Wexp(W) = x, so Wexp(W) - x = 0.
+  We can use Halley iteration to find this root; to do so it needs first and second derivative.
+  f(W)    = W * exp(W) - x
+  f'(W)   = W * exp(W) + exp(W)       = exp(W) * (W + 1)
+  f''(W)  = exp(W) + (W + 1) * exp(W) = exp(W) * (W + 2)
+*/
+
 double HalleyIter(double x, double w_guess){
   double w = w_guess;
   int MaxEval = 16;
   bool CONVERGED = false;
-  int i = 1;
+  int i = 0;
   do {
     double ew = exp(w);
     double w1 = w + 1.0;
@@ -49,8 +56,7 @@ double HalleyIter(double x, double w_guess){
     f0 /= ((ew * w1) - (((w1 + 1.0) * f0) / (2 * w1))); /* Corliss et al. 5.9 */
     CONVERGED = fabs(f0) <= EPS;
     w -= f0;
- /*   std::cout << i << " " << w << " " << f0 << "\n"; */
-    ++i;
+     ++i;
   	} while (!CONVERGED && i < MaxEval);
   return(w);
 }
@@ -63,14 +69,17 @@ NumericVector lambertW0_C(NumericVector x) {
   for (int i = 0; i < n; ++i) {
     if (x(i) < -M_1_E) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
-    } else if (fabs((x(i) + M_1_E) < 4 * EPS)) {
     } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
     } else if (x(i) <= M_E - 0.5) {
-/* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant */
+/* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
+   Numerator: -10189 / 303840 * p ^ 3 + 40529 / 303840 * p ^ 2 + 489 / 844 * p - 1
+   Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
+   Converted to digits to reduce needed operations
+*/
       double p = sqrt(2 * (M_E * x(i) + 1));
-      double Numer = ((-10189 * p + 40529) * p / 303840 + 489 / 844) * p - 1;
-      double Denom = (-14009 / 303840 * p + 355 / 844) * p + 1;
+      double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p + 0.5793838862559242) * p - 1;
+      double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1;
       w = Numer / Denom;
       result(i) = HalleyIter(x(i), w);
       } else {
@@ -78,7 +87,8 @@ NumericVector lambertW0_C(NumericVector x) {
       w = log(x(i));
       double L_2 = log(w);
       double L_3 = L_2 / w;
-      w += -L_2 + L_3 + 0.5 * L_3 * L_3 - L_3 / w + L_3 / (w * w) - 1.5 * L_3 * L_3 / w + L_3 * L_3 * L_3 / 3;
+      double L_3_sq = L_3 * L_3;
+      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
       result(i) = HalleyIter(x(i), w);
     }
   }
@@ -93,7 +103,6 @@ NumericVector lambertWm1_C(NumericVector x){
   for (int i = 0; i < n; ++i) {
     if (x(i) < -M_1_E || x(i) >= 0.0) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
-    } else if (fabs((x(i) + M_1_E) < 4 * EPS)) {
     } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
     } else {
@@ -101,7 +110,8 @@ NumericVector lambertWm1_C(NumericVector x){
       w = log(-x(i));
       double L_2 = log(-w);
       double L_3 = L_2 / w;
-      w += -L_2 + L_3 + 0.5 * L_3 * L_3 - L_3 / w + L_3 / (w * w) - 1.5 * L_3 * L_3 / w + L_3 * L_3 * L_3 / 3;
+      double L_3_sq = L_3 * L_3;
+      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
       result(i) = HalleyIter(x(i), w);
     }
   }
