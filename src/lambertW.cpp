@@ -64,6 +64,7 @@ NumericVector lambertW0_C(NumericVector x) {
     if (x(i) < -M_1_E) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
     } else if (fabs((x(i) + M_1_E) < 4 * EPS)) {
+    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
     } else if (x(i) <= M_E - 0.5) {
 /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant */
@@ -93,6 +94,7 @@ NumericVector lambertWm1_C(NumericVector x){
     if (x(i) < -M_1_E || x(i) >= 0.0) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
     } else if (fabs((x(i) + M_1_E) < 4 * EPS)) {
+    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
     } else {
 /* Use first five terms of Corliss et al. 4.19 */
