@@ -2,7 +2,7 @@
 \alias{NEWS}
 \title{NEWS file for the \code{\link[=lamW]{lamW} package}}
 
-\section{Changes in version 0.0-2 (2015-05-20)}{
+\section{Changes in version 0.1-1 (2015-05-20)}{
   \subsection{Bug Fixes}{
     \itemize{
       \item Remove extra parenthesis which was causing boolean to be passed to \code{fabs} (thanks to Dr. Brian Ripley)
