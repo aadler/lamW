@@ -6,8 +6,8 @@ SecondaryBranchTests <- SecondaryBranchAnswers * exp(SecondaryBranchAnswers)
 context("Testing lambertW")
 
 test_that("Functions return proper values", {
-  expect_that(lambertW0(PrincipleBranchTests), equals(PrincipleBranchAnswers))
-  expect_that(lambertWm1(SecondaryBranchTests), equals(SecondaryBranchAnswers))
+  expect_equal(lambertW0(PrincipleBranchTests), PrincipleBranchAnswers)
+  expect_equal(lambertWm1(SecondaryBranchTests), SecondaryBranchAnswers)
 })
 
 test_that("NaNs are returned for values outside domain", {

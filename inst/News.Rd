@@ -2,6 +2,14 @@
 \alias{NEWS}
 \title{NEWS file for the \code{\link[=lamW]{lamW} package}}
 
+\section{Changes in version 0.1-2 (TBD)}{
+  \subsection{Updates}{
+    \itemize{
+      \item Update code for tests for equality for changes in \code{testthat} package
+    }
+  }
+}
+
 \section{Changes in version 0.1-1 (2015-05-20)}{
   \subsection{Bug Fixes}{
     \itemize{
