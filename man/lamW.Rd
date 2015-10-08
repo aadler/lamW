@@ -23,7 +23,7 @@ Both functions return the appropriate values in the intervals for which they are
 Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On the Lambert W function", Advances in Computational Mathematics, Springer, 1996, 5, 329-359
 }
 \author{
-Avraham Adler \code{<Avraham.Adler@gmail.com>}
+Avraham Adler \email{Avraham.Adler@gmail.com}
 }
 \seealso{
 This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \code{gsl} package without having to obtain or install the \acronym{GSL}. It also provides similar functionality to the \code{\link[LambertW]{W}} function in the \code{LambertW} package, which itself imports the \code{gsl} package.
