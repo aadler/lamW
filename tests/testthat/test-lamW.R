@@ -13,7 +13,7 @@ test_that("Functions return proper values", {
 test_that("NaNs are returned for values outside domain", {
   expect_true(is.nan(lambertW0(-1)))
   expect_true(is.nan(lambertWm1(-1)))
-  expect_true(is.nan(lambertWm1(0)))
+  expect_equal(lambertWm1(0), -Inf)
   expect_true(is.nan(lambertWm1(1)))
   expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
 })

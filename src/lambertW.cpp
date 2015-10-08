@@ -69,7 +69,9 @@ NumericVector lambertW0_C(NumericVector x) {
   NumericVector result(n);
   double w;
   for (int i = 0; i < n; ++i) {
-    if (x(i) < -M_1_E) {
+    if (x(i) == std::numeric_limits<double>::infinity()) {
+      result(i) = std::numeric_limits<double>::infinity();
+    } else if (x(i) < -M_1_E) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
     } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
@@ -103,7 +105,9 @@ NumericVector lambertWm1_C(NumericVector x){
   NumericVector result(n);
   double w;
   for (int i = 0; i < n; ++i) {
-    if (x(i) < -M_1_E || x(i) >= 0.0) {
+    if (x(i) == 0) {
+      result(i) = -std::numeric_limits<double>::infinity();
+    } else if (x(i) < -M_1_E || x(i) > 0.0) {
       result(i) = std::numeric_limits<double>::quiet_NaN();
     } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
       result(i) = -1.0;
