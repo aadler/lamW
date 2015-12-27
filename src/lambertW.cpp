@@ -27,6 +27,7 @@ References:
 Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On the Lambert W function", Advances in Computational Mathematics,
             Springer, 1996, 5, 329-359
 */
+// [[Rcpp::interfaces(r, cpp)]]
 
 #include <Rcpp.h>
 #include <math.h>

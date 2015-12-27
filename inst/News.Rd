@@ -1,12 +1,35 @@
 \name{NEWS}
 \encoding{UTF-8}
 \alias{NEWS}
-\title{NEWS file for the \code{\link[=lamW]{lamW} package}}
+\title{NEWS file for the \code{\link[lamW]{lamW}} package}
+\note{This project attempts to follow \href{http://semver.org/}{Semantic Versioning}}
+
+\section{Unreleased}{}
+
+\section{Version 1.0.0 (2015-12-27)}{
+  \subsection{Added}{
+    \itemize{
+      \item Added explicit exportation of headers for use in the \link[lambertW]{LambertW} package (Thanks to Georg M. Görg).
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
+      \item Update to initial release
+      \item Adjust NEWS to more closely follow \href{http://keepachangelog.com/}{keep a changelog} suggestions
+      \item Removed mention of LambertW and its importing \link{gsl} from documentation as it now imports this package
+
+    }
+  }
+}
 
 \section{Changes in version 0.1-2 (2015-10-07)}{
-  \subsection{Updates}{
+  \subsection{Added}{
     \itemize{
-      \item Have both branches of the function return their respective limits. The main branch returns \code{Inf} when it is passed \code{Inf} and the secondary branch returns -\code{Inf} when it is passed 0 (Thanks to Georg M. Görg).
+      \item Have both branches of the function return their respective limits. The main branch returns \code{Inf} when it is passed \code{Inf} and the secondary branch returns -\code{Inf} when it is passed 0 (Thanks to Georg M. Görg)
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
       \item Make unit tests more robust
       \item Update code for tests for equality for changes in \code{testthat} package
     }
@@ -14,19 +37,23 @@
 }
 
 \section{Changes in version 0.1-1 (2015-05-20)}{
-  \subsection{Bug Fixes}{
+  \subsection{Fixed}{
     \itemize{
       \item Remove extra parenthesis which was causing boolean to be passed to \code{fabs} (thanks to Dr. Brian Ripley)
     }
   }
-  \subsection{Updates}{
+  \subsection{Added}{
     \itemize{
-      \item Enhanced and cleaned documentation
       \item Added URL and Bugreports to DESCRIPTION
       \item Implemented minor optimizations to reduce number of needed calculations
       \item Added comments to source explaining Halley step and provenance of numeric coefficients in Padé approximant
-      \item Cleaned up source code from unnecessary comments
       \item Added more robust unit testing
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
+      \item Enhanced and cleaned documentation
+      \item Cleaned up source code from unnecessary comments
     }
   }
 }

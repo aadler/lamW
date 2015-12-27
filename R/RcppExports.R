@@ -9,3 +9,7 @@ lambertWm1_C <- function(x) {
     .Call('lamW_lambertWm1_C', PACKAGE = 'lamW', x)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('lamW_RcppExport_registerCCallable', PACKAGE = 'lamW')
+})
