@@ -1,15 +1,22 @@
 \name{NEWS}
-\encoding{UTF-8}
 \alias{NEWS}
 \title{NEWS file for the \code{\link[lamW]{lamW}} package}
 \note{This project attempts to follow \href{http://semver.org/}{Semantic Versioning}}
 
 \section{Unreleased}{}
 
+\section{Version 1.0.1-9990 (TBD)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Removed UTF encoding from NEWS so that CRAN can show it properly
+    }
+  }
+}
+
 \section{Version 1.0.0 (2015-12-27)}{
   \subsection{Added}{
     \itemize{
-      \item Added explicit exportation of headers for use in the \link[lambertW]{LambertW} package (Thanks to Georg M. Görg).
+      \item Added explicit exportation of headers for use in the \link[lambertW]{LambertW} package (Thanks to Georg M. Gorg).
     }
   }
   \subsection{Changed}{
@@ -25,7 +32,7 @@
 \section{Changes in version 0.1-2 (2015-10-07)}{
   \subsection{Added}{
     \itemize{
-      \item Have both branches of the function return their respective limits. The main branch returns \code{Inf} when it is passed \code{Inf} and the secondary branch returns -\code{Inf} when it is passed 0 (Thanks to Georg M. Görg)
+      \item Have both branches of the function return their respective limits. The main branch returns \code{Inf} when it is passed \code{Inf} and the secondary branch returns -\code{Inf} when it is passed 0 (Thanks to Georg M. Gorg)
     }
   }
   \subsection{Changed}{
