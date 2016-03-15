@@ -12,8 +12,8 @@
 \tabular{ll}{
 Package: \tab lamW\cr
 Type: \tab Package\cr
-Version: \tab 1.0.0-9990\cr
-Date: \tab TBD\cr
+Version: \tab 1.1.0\cr
+Date: \tab 2016-03-15\cr
 License: \tab BSD_2_clause \cr
 }
 }

@@ -5,7 +5,12 @@
 
 \section{Unreleased}{}
 
-\section{Version 1.0.1-9990 (TBD)}{
+\section{Version 1.1.0 (2016-03-15)}{
+  \subsection{Changed}{
+    \itemize{
+      \item Switched from exclusively using Halley iteration to usually using Fritsch iteration resulting in a significant increase in speed in both branches
+    }
+  }
   \subsection{Fixed}{
     \itemize{
       \item Removed UTF encoding from NEWS so that CRAN can show it properly

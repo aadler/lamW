@@ -1,8 +1,8 @@
 Package: lamW
 Type: Package
 Title: Lambert-W Function
-Version: 1.0.1-9990
-Date: 2015-12-27
+Version: 1.1.0
+Date: 2016-03-16
 Authors@R: c(person(given="Avraham", family="Adler", role=c("aut", "cph", "cre"), email="Avraham.Adler@gmail.com"))
 Description: Implements both real-valued branches of the Lambert-W function, also known as the product logarithm, without the need for installing the entire GSL.
 License: BSD_2_clause + file LICENSE
