@@ -26,6 +26,11 @@ References:
 
 Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On the Lambert W function", Advances in Computational Mathematics,
             Springer, 1996, 5, 329-359
+
+Veberič, Darko. "Lambert W function for applications in physics."
+            Computer Physics Communications 183(12), 2012, 2622-2628
+
+ Veberič used for Fritsch iteration step; access to original paper currently unavailable
 */
 // [[Rcpp::interfaces(r, cpp)]]
 
@@ -36,6 +41,32 @@ using namespace Rcpp;
 
 const double EPS = 2.2204460492503131e-16;
 const double M_1_E = 1.0 / M_E;
+
+/* Fritsch Iteration as found in http://arxiv.org/pdf/1209.0735.pdf
+ * W_{n+1} = W_n * (1 + e_n)
+ * e_n = z_n / (1 + W_n) * (q_n - z_n) / (q_n - 2 * z_n)
+ * z_n = ln(x / W_n) - W_n
+ * q_n = 2 * (1 + W_n) * (1 + W_n + 2 / 3 * z_n)
+ */
+
+double FritschIter(double x, double w_guess){
+  double w = w_guess;
+  int MaxEval = 3;
+  bool CONVERGED = false;
+  double k = 2.0 / 3.0;
+  int i = 0;
+  do {
+    double z = log(x / w) - w;
+    double w1 = w + 1.0;
+    double q = 2 * w1 * (w1 + k * z);
+    double qz = q - z;
+    double e = z / w1 * qz / (qz - z);
+    CONVERGED = fabs(e) <= EPS;
+    w *= (1 + e);
+    ++i;
+  } while (!CONVERGED && i < MaxEval);
+  return(w);
+}
 
 /* Halley Iteration
   Given x, we want to find W such that Wexp(W) = x, so Wexp(W) - x = 0.
@@ -101,6 +132,42 @@ NumericVector lambertW0_C(NumericVector x) {
 }
 
 // [[Rcpp::export]]
+NumericVector lambertW0_CF(NumericVector x) {
+  int n = x.size();
+  NumericVector result(n);
+  double w;
+  for (int i = 0; i < n; ++i) {
+    if (x(i) == std::numeric_limits<double>::infinity()) {
+      result(i) = std::numeric_limits<double>::infinity();
+    } else if (x(i) < -M_1_E) {
+      result(i) = std::numeric_limits<double>::quiet_NaN();
+    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
+      result(i) = -1.0;
+    } else if (x(i) <= M_E - 0.5) {
+      /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
+      Numerator: -10189 / 303840 * p ^ 3 + 40529 / 303840 * p ^ 2 + 489 / 844 * p - 1
+      Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
+      Converted to digits to reduce needed operations
+      */
+      double p = sqrt(2 * (M_E * x(i) + 1));
+      double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p + 0.5793838862559242) * p - 1;
+      double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1;
+      w = Numer / Denom;
+      result(i) = FritschIter(x(i), w);
+    } else {
+      /* Use first five terms of Corliss et al. 4.19 */
+      w = log(x(i));
+      double L_2 = log(w);
+      double L_3 = L_2 / w;
+      double L_3_sq = L_3 * L_3;
+      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
+      result(i) = FritschIter(x(i), w);
+    }
+  }
+  return(result);
+}
+
+// [[Rcpp::export]]
 NumericVector lambertWm1_C(NumericVector x){
   int n = x.size();
   NumericVector result(n);
@@ -120,6 +187,31 @@ NumericVector lambertWm1_C(NumericVector x){
       double L_3_sq = L_3 * L_3;
       w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
       result(i) = HalleyIter(x(i), w);
+    }
+  }
+  return(result);
+}
+
+// [[Rcpp::export]]
+NumericVector lambertWm1_CF(NumericVector x){
+  int n = x.size();
+  NumericVector result(n);
+  double w;
+  for (int i = 0; i < n; ++i) {
+    if (x(i) == 0) {
+      result(i) = -std::numeric_limits<double>::infinity();
+    } else if (x(i) < -M_1_E || x(i) > 0.0) {
+      result(i) = std::numeric_limits<double>::quiet_NaN();
+    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
+      result(i) = -1.0;
+    } else {
+      /* Use first five terms of Corliss et al. 4.19 */
+      w = log(-x(i));
+      double L_2 = log(-w);
+      double L_3 = L_2 / w;
+      double L_3_sq = L_3 * L_3;
+      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
+      result(i) = FritschIter(x(i), w);
     }
   }
   return(result);
