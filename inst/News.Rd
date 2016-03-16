@@ -9,7 +9,7 @@
   }
 }
 
-\section{Unreleased (TBD)}{
+\section{1.1.1-9999 (TBD)}{
   \subsection{Added}{
     \itemize{
       \item Added testing for proper behavior near 0 due to log in Fritsch step implementation
