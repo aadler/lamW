@@ -33,7 +33,7 @@
 \section{Version 1.0.0 (2015-12-27)}{
   \subsection{Added}{
     \itemize{
-      \item Added explicit exportation of headers for use in the \link[lambertW]{LambertW} package (Thanks to Georg M. Gorg).
+      \item Added explicit exportation of headers for use in the \link[lambertW]{LambertW} package (Thanks to Georg M. Goerg).
     }
   }
   \subsection{Changed}{
