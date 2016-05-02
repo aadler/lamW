@@ -2,7 +2,7 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
-\section{1.1.1 (2016-05-02)}{
+\section{Version 1.1.1 (2016-05-02)}{
   \subsection{Added}{
     \itemize{
       \item Added testing for proper behavior near 0 due to log in Fritsch step implementation
