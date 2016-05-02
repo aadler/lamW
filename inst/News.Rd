@@ -1,6 +1,6 @@
 \name{NEWS}
 \alias{NEWS}
-\title{NEWS file for the \code{\link[pkg:lamW]{lamW}} package}
+\title{NEWS file for the lamW package}
 
 \section{Note}{
   \itemize{
