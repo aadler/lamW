@@ -34,11 +34,14 @@ Veberič used for Fritsch iteration step; access to original paper currently una
 Need to retain Halley step for -7e-3 < x 7e-3 where the Fritsch may underflow and return NaN
 */
 // [[Rcpp::interfaces(r, cpp)]]
-
+// [[Rcpp::depends(RcppParallel)]]
 #include <Rcpp.h>
-#include <math.h>
+#include <RcppParallel.h>
+
+#include <cmath>
 
 using namespace Rcpp;
+using namespace RcppParallel;
 
 const double EPS = 2.2204460492503131e-16;
 const double M_1_E = 1.0 / M_E;
@@ -96,68 +99,118 @@ double HalleyIter(double x, double w_guess){
   return(w);
 }
 
-// [[Rcpp::export]]
-NumericVector lambertW0_C(NumericVector x) {
-  int n = x.size();
-  NumericVector result(n);
+double lambertW0_CS(double x) {
+  double result;
   double w;
-  for (int i = 0; i < n; ++i) {
-    if (x(i) == std::numeric_limits<double>::infinity()) {
-      result(i) = std::numeric_limits<double>::infinity();
-    } else if (x(i) < -M_1_E) {
-      result(i) = std::numeric_limits<double>::quiet_NaN();
-    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
-      result(i) = -1.0;
-    } else if (x(i) <= M_E - 0.5) {
+  if (x == std::numeric_limits<double>::infinity()) {
+    result = std::numeric_limits<double>::infinity();
+  } else if (x < -M_1_E) {
+    result = std::numeric_limits<double>::quiet_NaN();
+  } else if (fabs(x + M_1_E) < 4 * EPS) {
+    result = -1.0;
+  } else if (x <= M_E - 0.5) {
       /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
       Numerator: -10189 / 303840 * p ^ 3 + 40529 / 303840 * p ^ 2 + 489 / 844 * p - 1
       Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
       Converted to digits to reduce needed operations
       */
-      double p = sqrt(2 * (M_E * x(i) + 1));
-      double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p + 0.5793838862559242) * p - 1;
-      double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1;
-      w = Numer / Denom;
-      if (fabs(x(i)) <= 7e-3) {
-        /* Use Halley step near 0 as this version of Fritsch may underflow */
-        result(i) = HalleyIter(x(i), w);
-      } else {
-        result(i) = FritschIter(x(i), w);
-      }
+    double p = sqrt(2 * (M_E * x + 1));
+    double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p + 0.5793838862559242) * p - 1;
+    double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1;
+    w = Numer / Denom;
+    if (fabs(x) <= 7e-3) {
+      /* Use Halley step near 0 as this version of Fritsch may underflow */
+      result = HalleyIter(x, w);
     } else {
-      /* Use first five terms of Corliss et al. 4.19 */
-      w = log(x(i));
-      double L_2 = log(w);
-      double L_3 = L_2 / w;
-      double L_3_sq = L_3 * L_3;
-      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
-      result(i) = FritschIter(x(i), w);
+      result = FritschIter(x, w);
     }
+  } else {
+    /* Use first five terms of Corliss et al. 4.19 */
+    w = log(x);
+    double L_2 = log(w);
+    double L_3 = L_2 / w;
+    double L_3_sq = L_3 * L_3;
+    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
+    result = FritschIter(x, w);
   }
   return(result);
 }
 
-// [[Rcpp::export]]
-NumericVector lambertWm1_C(NumericVector x){
-  int n = x.size();
-  NumericVector result(n);
+double lambertWm1_CS(double x){
+  double result;
   double w;
-  for (int i = 0; i < n; ++i) {
-    if (x(i) == 0) {
-      result(i) = -std::numeric_limits<double>::infinity();
-    } else if (x(i) < -M_1_E || x(i) > 0.0) {
-      result(i) = std::numeric_limits<double>::quiet_NaN();
-    } else if (fabs(x(i) + M_1_E) < 4 * EPS) {
-      result(i) = -1.0;
-    } else {
-      /* Use first five terms of Corliss et al. 4.19 */
-      w = log(-x(i));
-      double L_2 = log(-w);
-      double L_3 = L_2 / w;
-      double L_3_sq = L_3 * L_3;
-      w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
-      result(i) = FritschIter(x(i), w);
-    }
+  if (x == 0) {
+    result = -std::numeric_limits<double>::infinity();
+  } else if (x < -M_1_E || x > 0.0) {
+    result = std::numeric_limits<double>::quiet_NaN();
+  } else if (fabs(x + M_1_E) < 4 * EPS) {
+    result = -1.0;
+  } else {
+    /* Use first five terms of Corliss et al. 4.19 */
+    w = log(-x);
+    double L_2 = log(-w);
+    double L_3 = L_2 / w;
+    double L_3_sq = L_3 * L_3;
+    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3;
+    result = FritschIter(x, w);
   }
   return(result);
+}
+
+struct LW0 : public Worker
+{
+  // source and output
+  const RVector<double> input;
+  RVector<double> output;
+  // initialization
+  LW0(const NumericVector input, NumericVector output)
+    : input(input), output(output) {}
+  // Transform using primary branch
+  void operator() (std::size_t begin, std::size_t end) {
+    std::transform(input.begin() + begin,
+                   input.begin() + end,
+                   output.begin() + begin,
+                   lambertW0_CS);
+  }
+};
+
+struct LWm1 : public Worker
+{
+  // source and output
+  const RVector<double> input;
+  RVector<double> output;
+  // initialization
+  LWm1(const NumericVector input, NumericVector output)
+    : input(input), output(output) {}
+  // Transform using primary branch
+  void operator() (std::size_t begin, std::size_t end) {
+    std::transform(input.begin() + begin,
+                   input.begin() + end,
+                   output.begin() + begin,
+                   lambertWm1_CS);
+  }
+};
+
+// [[Rcpp::export]]
+NumericVector lambertW0_C(NumericVector x) {
+  // allocate the output vector
+  NumericVector output(x.size());
+  // Lambert W0 functor (pass input and output matrixes)
+  LW0 LW0(x, output);
+  // call parallelFor to do the work
+  parallelFor(0, x.length(), LW0);
+  // return the output vector
+  return output;
+}
+
+// [[Rcpp::export]]
+NumericVector lambertWm1_C(NumericVector x) {
+  // allocate the output vector
+  NumericVector output(x.size());
+  // Lambert Wm1 functor (pass input and output matrixes)
+  LWm1 LWm1(x, output);
+  // call parallelFor to do the work
+  parallelFor(0, x.length(), LWm1);
+  // return the output vector
+  return output;
 }

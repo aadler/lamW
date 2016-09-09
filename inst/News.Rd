@@ -2,6 +2,21 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
+\section{Note}{
+  \itemize{
+    \item This project attempts to follow \href{http://semver.org/}{Semantic Versioning}
+    \item This project attempts to follow the changelog system at \href{http://keepachangelog.com/}{Keep a CHANGELOG}
+  }
+}
+
+\section{1.2.0-9999 (TBD)}{
+
+  \subsection{Changed}{
+    \itemize{
+      \item Switched from Rcpp to RcppParallel. Sppedup should be noticeable, e.g. around a 5x speedup on an 8 core machine.
+    }
+  }
+
 \section{Version 1.1.1 (2016-05-02)}{
   \subsection{Added}{
     \itemize{
