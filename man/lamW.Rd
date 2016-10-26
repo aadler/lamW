@@ -28,7 +28,7 @@ Veberic, D. 2012 "Lambert W function for applications in physics", \emph{Compute
 Avraham Adler \email{Avraham.Adler@gmail.com}
 }
 \seealso{
-This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \code{gsl} package without having to obtain or install the \acronym{GSL}.
+This package provides similar functionality to the \code{\link[gsl]{Lambert}} functions in the \pkg{gsl} package without having to obtain or install the \acronym{GSL}.
 }
 \examples{
 lambertW0(exp(1))      ## Should equal 1, as 1 * exp(1) = e.

@@ -2,20 +2,14 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
-\section{Note}{
-  \itemize{
-    \item This project attempts to follow \href{http://semver.org/}{Semantic Versioning}
-    \item This project attempts to follow the changelog system at \href{http://keepachangelog.com/}{Keep a CHANGELOG}
-  }
-}
-
-\section{1.2.0-9999 (TBD)}{
+\section{Version 1.2.0 (2016-10-26)}{
 
   \subsection{Changed}{
     \itemize{
-      \item Switched from Rcpp to RcppParallel. Sppedup should be noticeable, e.g. around a 5x speedup on an 8 core machine.
+      \item Now using RcppParallel for calculation. Speedup when calculating more than one value at a time should be noticeable, e.g. around a 5x speedup on an 8 core machine. There should be no noticeable change when calculating single values at a time.
     }
   }
+}
 
 \section{Version 1.1.1 (2016-05-02)}{
   \subsection{Added}{
