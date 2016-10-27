@@ -6,8 +6,8 @@ Date: 2016-10-26
 Authors@R: c(person(given="Avraham", family="Adler", role=c("aut", "cph", "cre"), email="Avraham.Adler@gmail.com"))
 Description: Implements both real-valued branches of the Lambert-W function, also known as the product logarithm, without the need for installing the entire GSL.
 License: BSD_2_clause + file LICENSE
-Imports: Rcpp, RcppParallel (>= 4.3.20)
-LinkingTo: Rcpp, RcppParallel (>= 4.3.20)
+Imports: Rcpp, RcppParallel
+LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make
 Suggests: testthat
 NeedsCompilation: yes
