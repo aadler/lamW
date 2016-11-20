@@ -55,6 +55,8 @@ module lambertW
   real(kind = c_double), parameter :: ZERO = 0_c_double
   real(kind = c_double), parameter :: ONE = 1_c_double
   real(kind = c_double), parameter :: TWO = 2_c_double
+  real(kind = c_double), parameter :: HALF = 0.5_c_double
+  real(kind = c_double), parameter :: TWOTHIRDS = TWO / 3_c_double
   real(kind = c_double), parameter :: EPS = 2.2204460492503131e-16_c_double
   real(kind = c_double), parameter :: ME = 2.7182818284590451_c_double
   real(kind = c_double), parameter :: M1E = 1 / ME
@@ -75,7 +77,7 @@ contains
     function fritsch_f (x, w_guess) result (w)
 
     real(kind = c_double), intent(in)                       :: x, w_guess
-    real(kind = c_double)                                   :: w, k, z, w1, q, qz, e
+    real(kind = c_double)                                   :: w, z, w1, q, qz, e
     logical(kind = c_bool)                                  :: converged
     integer(kind = c_int), parameter                        :: maxeval = 6
     integer(kind = c_int)                                   :: i
@@ -83,12 +85,11 @@ contains
         w = w_guess
         converged = .FALSE.
         i = 1
-        k = 2_c_double / 3_c_double
 
         do while (i <= maxeval .and. .not. converged)
             z = log(x / w) - w
             w1 = w + ONE
-            q = 2 * w1 * (w1 + k * z)
+            q = 2 * w1 * (w1 + TWOTHIRDS * z)
             qz = q - z
             e = z * qz / (w1 * (qz - z))
             converged = abs(e) <= EPS
@@ -117,7 +118,7 @@ contains
     real(kind = c_double), intent(in)                       :: x, w_guess
     real(kind = c_double)                                   :: w, w1, ew, f0
     logical(kind = c_bool)                                  :: converged
-    integer(kind = c_int), parameter                        :: maxeval = 3
+    integer(kind = c_int), parameter                        :: maxeval = 2
     integer(kind = c_int)                                   :: i
 
         w = w_guess
@@ -128,7 +129,7 @@ contains
             ew = exp(w)
             w1 = w + ONE
             f0 = w * ew - x
-            f0 = f0 / ((ew * w1) - (((w1 + 1.0) * f0) / (2 * w1)))
+            f0 = f0 / ((ew * w1) - (((w1 + ONE) * f0) / (TWO * w1)))
             converged = abs(f0) < EPS
             w = w - f0
             i = i + 1
@@ -158,7 +159,7 @@ contains
   real(kind = c_double), intent(in)              :: x
   integer(kind = c_int)                          :: i
   real(kind = c_double)                          :: l, w, p, Numer, Denom, L2, L3, &
-                                                    L3sq, infty
+                                                    L11, infty
   real(kind = c_double), dimension(3), parameter :: N = [0.018055555555555555_c_double, &
                                                          0.35694444444444444_c_double, &
                                                          0.166666666666666_c_double]
@@ -171,7 +172,7 @@ contains
           call set_nan(l)
       else if (abs(x + M1E) < 4_c_double * EPS) then
           l = -ONE
-      else if (x <= (ME - 0.5_c_double)) then
+      else if (x <= (ME - HALF)) then
           p = sqrt(TWO * (ME * x + ONE))
           Numer = ((N(1) * p + N(2)) * p + N(3)) * p - ONE
           Denom = (D(1) * p + D(2)) * p + ONE
@@ -185,10 +186,10 @@ contains
     ! Use first five terms of Corliss et al. 4.19
           w = log(x)
           L2 = log(w);
-          L3 = L2 / w;
-          L3sq = L3 * L3;
-          w = w - L2 + L3 + 0.5_c_double * L3sq - L3 / w + L3 / (w * w) - 1.5_c_double &
-                  * L3sq / w + L3sq * L3 / 3_c_double
+          L11 = 1 / w
+          L3 = L2 * L11;
+          w = w - L2 + L3 + ((L3 / 3_c_double + HALF * (ONE - 3 * L11)) * L3 + L11 * &
+              (L11 - ONE)) * L3
           l = fritsch_f(x, w)
       end if
 
@@ -198,6 +199,8 @@ contains
 ! ROUTIBE: lambertW0_f
 !
 ! DESCRIPTION: Calls lambertW0_f_s on a vector
+!              For some reason, I have a problem combining the single into the vector
+!              here, but it works for lambertWm1_f.
 !----------------------------------------------------------------------------------------
 
     subroutine lambertw0_f (x, nx, lamwv) bind(C, name = 'lambertW0_f')
@@ -230,12 +233,7 @@ contains
   real(kind = c_double), intent(in), dimension(nx)        :: x           ! Observations
   real(kind = c_double), intent(out), dimension(nx)       :: lamwv
   integer(kind = c_int)                                   :: i
-  real(kind = c_double)                                   :: w, L2, L3, L3sq, Numer, Denom, p
-  real(kind = c_double), dimension(3), parameter :: N = [0.018055555555555555_c_double, &
-                                                         0.35694444444444444_c_double, &
-                                                         0.166666666666666_c_double]
-  real(kind = c_double), dimension(2), parameter :: D = [0.143055555555555555_c_double, &
-                                                         0.83333333333333333_c_double]
+  real(kind = c_double)                                   :: w, L2, L3, l11
 
       !$omp parallel do schedule(auto)
       do i = 1, nx
@@ -249,15 +247,14 @@ contains
     ! Use first five terms of Corliss et al. 4.19
               w = log(-x(i))
               L2 = log(-w);
-              L3 = L2 / w;
-              L3sq = L3 * L3;
-              w = w - L2 + L3 + 0.5_c_double * L3sq - L3 / w + L3 / (w * w) - 1.5_c_double &
-                  * L3sq / w + L3sq * L3 / 3_c_double
+              L11 = 1 / w
+              L3 = L2 * L11;
+              w = w - L2 + L3 + ((L3 / 3_c_double + HALF * (ONE - 3 * L11)) * L3 + &
+                  L11 * (L11 - ONE)) * L3
               lamwv(i) = fritsch_f(x(i), w)
           end if
       end do
       !$omp end parallel do
-
 
   end subroutine lambertWm1_f
 
