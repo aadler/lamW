@@ -43,16 +43,6 @@ SEXP lambertWm1_f_wrap (SEXP x) {
   return(ret);
 }
 
-double h (double *x, double *w);
-
-SEXP h_wrap(SEXP x, SEXP w){
-  SEXP ret;
-  PROTECT(ret = allocVector(REALSXP, 1));
-  REAL(ret)[0] = h(REAL(x), REAL(w));
-  UNPROTECT(1);
-  return(ret);
-}
-
 void set_nan_(double *val)
 {
   // *val = sqrt(-1.0); By Drew Schmidt

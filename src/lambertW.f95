@@ -47,11 +47,17 @@
 module lambertW
   use, intrinsic :: iso_c_binding
   use, intrinsic :: omp_lib
-  use utils
 
   implicit none
   private
   public :: lambertW0_f, lambertWm1_f
+
+  real(kind = c_double), parameter :: ZERO = 0_c_double
+  real(kind = c_double), parameter :: ONE = 1_c_double
+  real(kind = c_double), parameter :: TWO = 2_c_double
+  real(kind = c_double), parameter :: EPS = 2.2204460492503131e-16_c_double
+  real(kind = c_double), parameter :: ME = 2.7182818284590451_c_double
+  real(kind = c_double), parameter :: M1E = 1 / ME
 
 contains
 
@@ -84,7 +90,7 @@ contains
             w1 = w + ONE
             q = 2 * w1 * (w1 + k * z)
             qz = q - z
-            e = z / w1 * qz / (qz - z)
+            e = z * qz / (w1 * (qz - z))
             converged = abs(e) <= EPS
             w = w * (ONE + e)
             i = i + 1
@@ -106,19 +112,19 @@ contains
 !          W_{n+1} = W_n - {2 * f(W_n) * f'(W_n)} / {2 * [f'(W_n)]^2 - f(W_n) * f''(W_n)}
 !----------------------------------------------------------------------------------------
 
-    function halley_f (x, w_guess) result (w) bind(C, name = 'h')
+    function halley_f (x, w_guess) result (w)
 
     real(kind = c_double), intent(in)                       :: x, w_guess
     real(kind = c_double)                                   :: w, w1, ew, f0
     logical(kind = c_bool)                                  :: converged
-    integer(kind = c_int), parameter                        :: maxeval = 8
+    integer(kind = c_int), parameter                        :: maxeval = 3
     integer(kind = c_int)                                   :: i
 
         w = w_guess
         converged = .FALSE.
         i = 1
 
-        do while (i < maxeval .and. .not. converged)
+        do while (i <= maxeval .and. .not. converged)
             ew = exp(w)
             w1 = w + ONE
             f0 = w * ew - x
@@ -137,35 +143,38 @@ contains
 !              Long decimal expansions below calculated using expansion in Corliss 4.22
 !              to create (3, 2) Pade approximant:
 !
-!   Numerator: -10189 / 303840 * p ^ 3 + 40529 / 303840 * p ^ 2 + 489 / 844 * p - 1
-!   Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
+!   Numerator: 13 / 720 * p ^ 3 + 257 / 720 * p ^ 2 + 1 / 6 * p - 1
+!   Denominator: 103 / 720 * p^2 + 5 / 6 * p + 1
 !
 !           Converted to digits to reduce needed operations
 !           Halley step used when abs(x) < 7e-3 as this version of Fritsch may underflow
 !----------------------------------------------------------------------------------------
 
-  function lambertW0_f_s (x) result (l) bind(C, name = 'lambertW0_f_s')
+  function lambertW0_f_s (x) result (l)
 
   external set_nan
   external set_inf
 
-  real(kind = c_double), intent(in)                       :: x
-  integer(kind = c_int)                                   :: i
-  real(kind = c_double)                                   :: l, w, p, Numer, Denom, &
-                                                             L2, L3, L3sq, infty
+  real(kind = c_double), intent(in)              :: x
+  integer(kind = c_int)                          :: i
+  real(kind = c_double)                          :: l, w, p, Numer, Denom, L2, L3, &
+                                                    L3sq, infty
+  real(kind = c_double), dimension(3), parameter :: N = [0.018055555555555555_c_double, &
+                                                         0.35694444444444444_c_double, &
+                                                         0.166666666666666_c_double]
+  real(kind = c_double), dimension(2), parameter :: D = [0.143055555555555555_c_double, &
+                                                         0.83333333333333333_c_double]
       call set_inf(infty)
       if (x == infty) then
           call set_inf(l)
-      else if (x < MM1E) then
+      else if (x < -M1E) then
           call set_nan(l)
       else if (abs(x + M1E) < 4_c_double * EPS) then
           l = -ONE
       else if (x <= (ME - 0.5_c_double)) then
           p = sqrt(TWO * (ME * x + ONE))
-          Numer = ((-0.03353409689310163_c_double * p + 0.1333892838335966_c_double) &
-                   * p + 0.5793838862559242_c_double) * p - ONE
-          Denom = (-0.04610650342285413_c_double * p + 0.4206161137440758_c_double) &
-                   * p + ONE
+          Numer = ((N(1) * p + N(2)) * p + N(3)) * p - ONE
+          Denom = (D(1) * p + D(2)) * p + ONE
           w = Numer / Denom
           if (abs(x) <= 1.2e-2_c_double) then
               l = halley_f(x, w)
@@ -198,7 +207,7 @@ contains
     real(kind = c_double), intent(out), dimension(nx)       :: lamwv       ! Observations
     integer(kind = c_int)                                   :: i
 
-        !$omp parallel do
+        !$omp parallel do schedule(auto)
         do i = 1, nx
             lamwv(i) = lambertW0_f_s(x(i))
         end do
@@ -221,13 +230,18 @@ contains
   real(kind = c_double), intent(in), dimension(nx)        :: x           ! Observations
   real(kind = c_double), intent(out), dimension(nx)       :: lamwv
   integer(kind = c_int)                                   :: i
-  real(kind = c_double)                                   :: w, L2, L3, L3sq
+  real(kind = c_double)                                   :: w, L2, L3, L3sq, Numer, Denom, p
+  real(kind = c_double), dimension(3), parameter :: N = [0.018055555555555555_c_double, &
+                                                         0.35694444444444444_c_double, &
+                                                         0.166666666666666_c_double]
+  real(kind = c_double), dimension(2), parameter :: D = [0.143055555555555555_c_double, &
+                                                         0.83333333333333333_c_double]
 
-      !$omp parallel do
+      !$omp parallel do schedule(auto)
       do i = 1, nx
           if (x(i) == ZERO) then
               call set_neginf(lamwv(i))
-          else if (x(i) < MM1E .or. x(i) > ZERO) then
+          else if (x(i) < -M1E .or. x(i) > ZERO) then
               call set_nan(lamwv(i))
           else if (abs(x(i) + M1E) < 4_c_double * EPS) then
               lamwv(i) = -ONE
