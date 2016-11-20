@@ -67,7 +67,6 @@ contains
 !----------------------------------------------------------------------------------------
 
     function fritsch_f (x, w_guess) result (w)
-    !$omp declare simd(fritsch_f) inbranch
 
     real(kind = c_double), intent(in)                       :: x, w_guess
     real(kind = c_double)                                   :: w, k, z, w1, q, qz, e
@@ -108,13 +107,11 @@ contains
 !----------------------------------------------------------------------------------------
 
     function halley_f (x, w_guess) result (w) bind(C, name = 'h')
-    !$omp declare simd(halley_f) inbranch
 
     real(kind = c_double), intent(in)                       :: x, w_guess
-    real(kind = c_double)                                   :: w, k, ew, f0, f1, f2, &
-                                                               N, D, diff
+    real(kind = c_double)                                   :: w, w1, ew, f0
     logical(kind = c_bool)                                  :: converged
-    integer(kind = c_int), parameter                        :: maxeval = 12
+    integer(kind = c_int), parameter                        :: maxeval = 8
     integer(kind = c_int)                                   :: i
 
         w = w_guess
@@ -123,14 +120,11 @@ contains
 
         do while (i < maxeval .and. .not. converged)
             ew = exp(w)
+            w1 = w + ONE
             f0 = w * ew - x
-            f1 = (w + ONE) * ew
-            f2 = (w + TWO) * ew
-            N = TWO * f0 * f1
-            D = TWO * f1 ** 2 - f0 * f2
-            diff = N / D
-            converged = abs(diff) < EPS
-            w = w - diff
+            f0 = f0 / ((ew * w1) - (((w1 + 1.0) * f0) / (2 * w1)))
+            converged = abs(f0) < EPS
+            w = w - f0
             i = i + 1
         end do
 
@@ -168,11 +162,10 @@ contains
           l = -ONE
       else if (x <= (ME - 0.5_c_double)) then
           p = sqrt(TWO * (ME * x + ONE))
-          Numer = -0.03353409689310163_c_double * p ** 3 + &
-                  0.1333892838335966_c_double * p ** 2 + &
-                  0.5793838862559242_c_double * p - ONE
-          Denom = -0.04610650342285413_c_double * p ** 2 + &
-                  0.4206161137440758_c_double * p + ONE
+          Numer = ((-0.03353409689310163_c_double * p + 0.1333892838335966_c_double) &
+                   * p + 0.5793838862559242_c_double) * p - ONE
+          Denom = (-0.04610650342285413_c_double * p + 0.4206161137440758_c_double) &
+                   * p + ONE
           w = Numer / Denom
           if (abs(x) <= 1.2e-2_c_double) then
               l = halley_f(x, w)
@@ -226,10 +219,11 @@ contains
 
   integer(kind = c_int), intent(in), value                :: nx          ! Size
   real(kind = c_double), intent(in), dimension(nx)        :: x           ! Observations
-  real(kind = c_double), intent(out), dimension(nx)       :: lamwv       ! Observations
+  real(kind = c_double), intent(out), dimension(nx)       :: lamwv
   integer(kind = c_int)                                   :: i
   real(kind = c_double)                                   :: w, L2, L3, L3sq
 
+      !$omp parallel do
       do i = 1, nx
           if (x(i) == ZERO) then
               call set_neginf(lamwv(i))
@@ -248,6 +242,7 @@ contains
               lamwv(i) = fritsch_f(x(i), w)
           end if
       end do
+      !$omp end parallel do
 
 
   end subroutine lambertWm1_f
