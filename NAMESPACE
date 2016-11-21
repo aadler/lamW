@@ -1,2 +1,2 @@
-useDynLib(lamW)
+useDynLib(lamW, lambertW0_f_wrap, lambertWm1_f_wrap, .registration = TRUE)
 exportPattern("^[[:alpha:]]+")

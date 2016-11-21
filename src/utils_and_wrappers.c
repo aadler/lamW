@@ -1,5 +1,6 @@
 #include <R.h>
 #include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 #include <Rmath.h>
 #include <string.h>
 #include <stdint.h>
@@ -42,6 +43,17 @@ SEXP lambertWm1_f_wrap (SEXP x) {
   UNPROTECT(1);
   return(ret);
 }
+
+static R_CallMethodDef callMethods[]  = {
+  {"lambertW0_f_wrap", (DL_FUNC) &lambertW0_f_wrap, 1},
+  {"lambertWm1_f_wrap", (DL_FUNC) &lambertWm1_f_wrap, 1},
+  {NULL, NULL, 0}
+};
+
+void
+  R_init_myLib(DllInfo *info) {
+    R_registerRoutines(info, NULL, callMethods, NULL, NULL);
+  }
 
 void set_nan_(double *val)
 {
