@@ -1,8 +1,8 @@
 \name{lamW-internal}
 
-%% These are the internal C++ functions called by the package
-\alias{lambertW0_C}
-\alias{lambertWm1_C}
+%% These are the internal C functions called by the package
+\alias{lambertW0_f_wrap}
+\alias{lambertWm1_f_wrap}
 
 \title{Internal lamW Functions}
 \description{
