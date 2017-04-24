@@ -2,6 +2,14 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
+\section{Version 1.3.0 (2016-04-24)}{
+  \subsection{Added}{
+    \itemize{
+      \item Added new package native routine registration.
+    }
+  }
+}
+
 \section{Version 1.2.0 (2016-10-26)}{
   \subsection{Changed}{
     \itemize{
