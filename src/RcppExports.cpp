@@ -10,7 +10,7 @@ using namespace Rcpp;
 
 // lambertW0_C
 NumericVector lambertW0_C(NumericVector x);
-static SEXP lamW_lambertW0_C_try(SEXP xSEXP) {
+static SEXP _lamW_lambertW0_C_try(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
@@ -18,11 +18,11 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP lamW_lambertW0_C(SEXP xSEXP) {
+RcppExport SEXP _lamW_lambertW0_C(SEXP xSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(lamW_lambertW0_C_try(xSEXP));
+        rcpp_result_gen = PROTECT(_lamW_lambertW0_C_try(xSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -40,7 +40,7 @@ RcppExport SEXP lamW_lambertW0_C(SEXP xSEXP) {
 }
 // lambertWm1_C
 NumericVector lambertWm1_C(NumericVector x);
-static SEXP lamW_lambertWm1_C_try(SEXP xSEXP) {
+static SEXP _lamW_lambertWm1_C_try(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
@@ -48,11 +48,11 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP lamW_lambertWm1_C(SEXP xSEXP) {
+RcppExport SEXP _lamW_lambertWm1_C(SEXP xSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(lamW_lambertWm1_C_try(xSEXP));
+        rcpp_result_gen = PROTECT(_lamW_lambertWm1_C_try(xSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -70,7 +70,7 @@ RcppExport SEXP lamW_lambertWm1_C(SEXP xSEXP) {
 }
 
 // validate (ensure exported C++ functions exist before calling them)
-static int lamW_RcppExport_validate(const char* sig) { 
+static int _lamW_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("NumericVector(*lambertW0_C)(NumericVector)");
@@ -80,9 +80,21 @@ static int lamW_RcppExport_validate(const char* sig) {
 }
 
 // registerCCallable (register entry points for exported C++ functions)
-RcppExport SEXP lamW_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("lamW", "lamW_lambertW0_C", (DL_FUNC)lamW_lambertW0_C_try);
-    R_RegisterCCallable("lamW", "lamW_lambertWm1_C", (DL_FUNC)lamW_lambertWm1_C_try);
-    R_RegisterCCallable("lamW", "lamW_RcppExport_validate", (DL_FUNC)lamW_RcppExport_validate);
+RcppExport SEXP _lamW_RcppExport_registerCCallable() { 
+    R_RegisterCCallable("lamW", "_lamW_lambertW0_C", (DL_FUNC)_lamW_lambertW0_C_try);
+    R_RegisterCCallable("lamW", "_lamW_lambertWm1_C", (DL_FUNC)_lamW_lambertWm1_C_try);
+    R_RegisterCCallable("lamW", "_lamW_RcppExport_validate", (DL_FUNC)_lamW_RcppExport_validate);
     return R_NilValue;
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_lamW_lambertW0_C", (DL_FUNC) &_lamW_lambertW0_C, 1},
+    {"_lamW_lambertWm1_C", (DL_FUNC) &_lamW_lambertWm1_C, 1},
+    {"_lamW_RcppExport_registerCCallable", (DL_FUNC) &_lamW_RcppExport_registerCCallable, 0},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_lamW(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

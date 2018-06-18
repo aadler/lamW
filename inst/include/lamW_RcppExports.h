@@ -16,7 +16,7 @@ namespace lamW {
             require("lamW", Rcpp::Named("quietly") = true);
             typedef int(*Ptr_validate)(const char*);
             static Ptr_validate p_validate = (Ptr_validate)
-                R_GetCCallable("lamW", "lamW_RcppExport_validate");
+                R_GetCCallable("lamW", "_lamW_RcppExport_validate");
             if (!p_validate(sig)) {
                 throw Rcpp::function_not_exported(
                     "C++ function with signature '" + std::string(sig) + "' not found in lamW");
@@ -29,17 +29,17 @@ namespace lamW {
         static Ptr_lambertW0_C p_lambertW0_C = NULL;
         if (p_lambertW0_C == NULL) {
             validateSignature("NumericVector(*lambertW0_C)(NumericVector)");
-            p_lambertW0_C = (Ptr_lambertW0_C)R_GetCCallable("lamW", "lamW_lambertW0_C");
+            p_lambertW0_C = (Ptr_lambertW0_C)R_GetCCallable("lamW", "_lamW_lambertW0_C");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_lambertW0_C(Rcpp::wrap(x));
+            rcpp_result_gen = p_lambertW0_C(Shield<SEXP>(Rcpp::wrap(x)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
@@ -48,17 +48,17 @@ namespace lamW {
         static Ptr_lambertWm1_C p_lambertWm1_C = NULL;
         if (p_lambertWm1_C == NULL) {
             validateSignature("NumericVector(*lambertWm1_C)(NumericVector)");
-            p_lambertWm1_C = (Ptr_lambertWm1_C)R_GetCCallable("lamW", "lamW_lambertWm1_C");
+            p_lambertWm1_C = (Ptr_lambertWm1_C)R_GetCCallable("lamW", "_lamW_lambertWm1_C");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_lambertWm1_C(Rcpp::wrap(x));
+            rcpp_result_gen = p_lambertWm1_C(Shield<SEXP>(Rcpp::wrap(x)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
