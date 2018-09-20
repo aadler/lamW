@@ -20,7 +20,7 @@ test_that("Function behaves properly near 0", {
   expect_equal(Vm1, LVm1 * exp(LVm1))
 })
 
-test_that("NaNs are returned for values outside domain", {
+test_that("Values outside domain properly trapped", {
   expect_true(is.nan(lambertW0(-1)))
   expect_true(is.nan(lambertWm1(-1)))
   expect_equal(lambertWm1(0), -Inf)
