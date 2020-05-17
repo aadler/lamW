@@ -2,6 +2,19 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
+\section{Version 1.3.1 ()}{
+  \subsection{Added}{
+    \itemize{
+      \item Added ORCID to DESCRIPTION
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
+      \item Refactored old nomenclature; perhaps that will allow NEWS to render.
+    }
+  }
+}
+
 \section{Version 1.3.0 (2017-04-24)}{
   \subsection{Added}{
     \itemize{
@@ -55,7 +68,7 @@
   }
 }
 
-\section{Version 0.1-2 (2015-10-07)}{
+\section{Version 0.1.2 (2015-10-07)}{
   \subsection{Added}{
     \itemize{
       \item Have both branches of the function return their respective limits. The main branch returns \code{Inf} when it is passed \code{Inf} and the secondary branch returns -\code{Inf} when it is passed 0 (Thanks to Georg M. Gorg)
@@ -69,7 +82,7 @@
   }
 }
 
-\section{Version 0.1-1 (2015-05-20)}{
+\section{Version 0.1.1 (2015-05-20)}{
   \subsection{Fixed}{
     \itemize{
       \item Remove extra parenthesis which was causing boolean to be passed to \code{fabs} (thanks to Dr. Brian Ripley)
@@ -91,7 +104,7 @@
   }
 }
 
-\section{Version 0.0-1 (2015-05-19)}{
+\section{Version 0.0.1 (2015-05-19)}{
   \itemize{
     \item Initial release
   }
