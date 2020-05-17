@@ -1,9 +1,8 @@
 #include <R.h>
 #include <Rinternals.h>
-#include <R_ext/Rdynload.h>
+#include <stdlib.h> // for NULL
 #include <Rmath.h>
-#include <string.h>
-#include <stdint.h>
+#include <R_ext/Rdynload.h>
 
 //  Copyright (c) 2016, Avraham Adler
 //  All rights reserved.
@@ -22,54 +21,49 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 
-void lambertW0_f (double *x, int nx, double *ret);
+void F77_NAME(lambertW0_f) (double *x, int nx, double *ret);
 
-SEXP lambertW0_f_wrap (SEXP x) {
+extern SEXP lambertW0_f_wrap (SEXP x) {
   const int nx = LENGTH(x);
   SEXP ret;
   PROTECT(ret = allocVector(REALSXP, nx));
-  lambertW0_f(REAL(x), nx, REAL(ret));
+  F77_CALL(lambertW0_f)(REAL(x), nx, REAL(ret));
   UNPROTECT(1);
   return(ret);
 }
 
-void lambertWm1_f (double *x, int nx, double *ret);
+void F77_NAME(lambertWm1_f) (double *x, int nx, double *ret);
 
-SEXP lambertWm1_f_wrap (SEXP x) {
+extern SEXP lambertWm1_f_wrap (SEXP x) {
   const int nx = LENGTH(x);
   SEXP ret;
   PROTECT(ret = allocVector(REALSXP, nx));
-  lambertWm1_f(REAL(x), nx, REAL(ret));
+  F77_CALL(lambertWm1_f)(REAL(x), nx, REAL(ret));
   UNPROTECT(1);
   return(ret);
 }
 
-static R_CallMethodDef callMethods[]  = {
+void F77_SUB(set_nan)(double *val){
+  *val = R_NaN;
+}
+
+void F77_SUB(set_inf)(double *val){
+  *val = R_PosInf;
+}
+
+void F77_SUB(set_neginf)(double *val){
+  *val = R_NegInf;
+}
+
+static const R_CallMethodDef callMethods[]  = {
   {"lambertW0_f_wrap", (DL_FUNC) &lambertW0_f_wrap, 1},
   {"lambertWm1_f_wrap", (DL_FUNC) &lambertWm1_f_wrap, 1},
   {NULL, NULL, 0}
 };
 
-void
-  R_init_myLib(DllInfo *info) {
-    R_registerRoutines(info, NULL, callMethods, NULL, NULL);
-  }
-
-void set_nan_(double *val)
-{
-  // *val = sqrt(-1.0); By Drew Schmidt
-  int64_t x = 0x7FF0000000000001LL;
-  memcpy((void *) val, (void *) &x, 8);
+void R_init_delaporte(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+    R_forceSymbols(dll, TRUE);
 }
 
-void set_inf_(double *val) {
-  // *val = Inf Based on set_nan
-  int64_t x = 0x7FF0000000000000LL;
-  memcpy((void *) val, (void *) &x, 8);
-}
-
-void set_neginf_(double *val) {
-  // *val = Neg Inf Based on set_nan
-  int64_t x = 0xFFF0000000000000LL;
-  memcpy((void *) val, (void *) &x, 8);
-}

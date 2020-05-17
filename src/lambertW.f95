@@ -203,7 +203,7 @@ contains
 !              here, but it works for lambertWm1_f.
 !----------------------------------------------------------------------------------------
 
-    subroutine lambertw0_f (x, nx, lamwv) bind(C, name = 'lambertW0_f')
+    subroutine lambertw0_f (x, nx, lamwv) bind(C, name = 'lambertW0_f_')
 
     integer(kind = c_int), intent(in), value                :: nx          ! Size
     real(kind = c_double), intent(in), dimension(nx)        :: x           ! Observations
@@ -224,7 +224,7 @@ contains
 ! DESCRIPTION: Calculates real-valued lambert W secondary branch.
 !----------------------------------------------------------------------------------------
 
-  subroutine lambertWm1_f (x, nx, lamwv) bind(C, name = 'lambertWm1_f')
+  subroutine lambertWm1_f (x, nx, lamwv) bind(C, name = 'lambertWm1_f_')
 
   external set_nan
   external set_neginf
