@@ -27,3 +27,8 @@ test_that("NaNs are returned for values outside domain", {
   expect_true(is.nan(lambertWm1(1)))
   expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
 })
+
+test_that("Integers are converted to reals for principle branch", {
+  expect_equal(lambertW0(c(-1, 0, 1, 2, 3, 4)),
+               lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)))
+})
