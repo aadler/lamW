@@ -1,6 +1,6 @@
-PrincipleBranchAnswers <- runif(10000, min = -1, max = 703.227)
+PrincipleBranchAnswers <- runif(15000, min = -1, max = 703.227)
 PrincipleBranchTests <- PrincipleBranchAnswers * exp(PrincipleBranchAnswers)
-SecondaryBranchAnswers <- runif(10000, min = -703.227, max = -1)
+SecondaryBranchAnswers <- runif(15000, min = -703.227, max = -1)
 SecondaryBranchTests <- SecondaryBranchAnswers * exp(SecondaryBranchAnswers)
 
 context("Testing lambertW")
@@ -11,13 +11,22 @@ test_that("Functions return proper values", {
 })
 
 test_that("Function behaves properly near 0", {
-  V0 <- seq(-1.5e-2, 1.5e-2, 1e-6)
+  V0 <- seq(-2e-2, 2e-2, 1e-6)
   V0E <- V0 * exp(V0)
   LV0 <- lambertW0(V0E)
   expect_equal(V0, LV0)
-  Vm1 <- V0[V0 < 0]
-  LVm1 <- lambertWm1(Vm1)
-  expect_equal(Vm1, LVm1 * exp(LVm1))
+})
+
+test_that("Function behaves properly near asymptotes", {
+  L <- seq(1e-6 - exp(-1), -0.25, 3e-6)
+  V0 <- lambertW0(L)
+  Vm1 <- lambertWm1(L)
+  expect_equal(V0 * exp(V0), L)
+  expect_equal(Vm1 * exp(Vm1), L)
+  Vm1 <- seq(-703, -703.227, -5e-6)
+  Vm1E <- Vm1 * exp(Vm1)
+  LVm1 <- lambertWm1(Vm1E)
+  expect_equal(Vm1, LVm1)
 })
 
 test_that("NaNs are returned for values outside domain", {
