@@ -37,7 +37,6 @@ Need to retain Halley step for -7e-3 < x 7e-3 where the Fritsch may underflow an
 // [[Rcpp::depends(RcppParallel)]]
 #include <Rcpp.h>
 #include <RcppParallel.h>
-
 #include <cmath>
 
 using namespace Rcpp;
@@ -55,7 +54,7 @@ const double M_1_E = 1.0 / M_E;
 
 double FritschIter(double x, double w_guess){
   double w = w_guess;
-  int MaxEval = 6;
+  int MaxEval = 3;
   bool CONVERGED = false;
   double k = 2.0 / 3.0;
   int i = 0;
@@ -84,7 +83,7 @@ double FritschIter(double x, double w_guess){
 
 double HalleyIter(double x, double w_guess){
   double w = w_guess;
-  int MaxEval = 12;
+  int MaxEval = 7;
   bool CONVERGED = false;
   int i = 0;
   do {
