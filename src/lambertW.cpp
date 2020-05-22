@@ -24,15 +24,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 References:
 
-Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E. "On the Lambert W function", Advances in Computational Mathematics,
-Springer, 1996, 5, 329-359
+Corless, R. M.; Gonnet, G. H.; Hare, D. E.; Jeffrey, D. J. & Knuth, D. E.
+ "On the Lambert W function", Advances in Computational Mathematics,
+ Springer, 1996, 5, 329-359
 
 Veberič, Darko. "Lambert W function for applications in physics."
-Computer Physics Communications 183(12), 2012, 2622-2628
+ Computer Physics Communications 183(12), 2012, 2622-2628
 
-Veberič used for Fritsch iteration step; access to original paper currently unavailable
-Need to retain Halley step for -7e-3 < x 7e-3 where the Fritsch may underflow and return NaN
+Veberič used for Fritsch iteration step; access to original paper currently
+unavailable. Need to retain Halley step for -7e-3 < x 7e-3 where the Fritsch may
+underflow and return NaN
 */
+
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::depends(RcppParallel)]]
 #include <Rcpp.h>
@@ -73,7 +76,8 @@ double FritschIter(double x, double w_guess){
 
   /* Halley Iteration
   Given x, we want to find W such that Wexp(W) = x, so Wexp(W) - x = 0.
-  We can use Halley iteration to find this root; to do so it needs first and second derivative.
+  We can use Halley iteration to find this root; to do so it needs first and
+  second derivative.
   f(W)    = W * exp(W) - x
   f'(W)   = W * exp(W) + exp(W)       = exp(W) * (W + 1)
   f''(W)  = exp(W) + (W + 1) * exp(W) = exp(W) * (W + 2)
@@ -90,7 +94,7 @@ double HalleyIter(double x, double w_guess){
     double ew = exp(w);
     double w1 = w + 1.0;
     double f0 = w * ew - x;
-    f0 /= ((ew * w1) - (((w1 + 1.0) * f0) / (2.0 * w1))); /* Corliss et al. 5.9 */
+    f0 /= ((ew * w1) - (((w1 + 1.0) * f0) / (2.0 * w1))); // Corliss et al. 5.9
     CONVERGED = fabs(f0) <= EPS;
     w -= f0;
     ++i;
@@ -101,20 +105,21 @@ double HalleyIter(double x, double w_guess){
 double lambertW0_CS(double x) {
   double result;
   double w;
-  if (x == std::numeric_limits<double>::infinity()) {
-    result = std::numeric_limits<double>::infinity();
+  if (Rcpp::traits::is_infinite<REALSXP>(x)) {
+    result = R_PosInf;
   } else if (x < -M_1_E) {
-    result = std::numeric_limits<double>::quiet_NaN();
+    result = R_NaN;
   } else if (fabs(x + M_1_E) < 4.0 * EPS) {
     result = -1.0;
   } else if (x <= M_E - 0.5) {
       /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
-      Numerator: -10189 / 303840 * p ^ 3 + 40529 / 303840 * p ^ 2 + 489 / 844 * p - 1
+      Numerator: -10189 / 303840 * p^3 + 40529 / 303840 * p^2 + 489 / 844 * p-1
       Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
       Converted to digits to reduce needed operations
       */
     double p = sqrt(2.0 * (M_E * x + 1.0));
-    double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p + 0.5793838862559242) * p - 1.0;
+    double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p +
+                    0.5793838862559242) * p - 1.0;
     double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1.0;
     w = Numer / Denom;
     if (fabs(x) <= 7e-3) {
@@ -129,7 +134,8 @@ double lambertW0_CS(double x) {
     double L_2 = log(w);
     double L_3 = L_2 / w;
     double L_3_sq = L_3 * L_3;
-    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3.0;
+    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq /
+      w + L_3_sq * L_3 / 3.0;
     result = FritschIter(x, w);
   }
   return(result);
@@ -139,9 +145,9 @@ double lambertWm1_CS(double x){
   double result;
   double w;
   if (x == 0) {
-    result = -std::numeric_limits<double>::infinity();
+    result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
-    result = std::numeric_limits<double>::quiet_NaN();
+    result =R_NaN;
   } else if (fabs(x + M_1_E) < 4.0 * EPS) {
     result = -1.0;
   } else {
@@ -150,7 +156,8 @@ double lambertWm1_CS(double x){
     double L_2 = log(-w);
     double L_3 = L_2 / w;
     double L_3_sq = L_3 * L_3;
-    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq / w + L_3_sq * L_3 / 3.0;
+    w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq /
+      w + L_3_sq * L_3 / 3.0;
     result = FritschIter(x, w);
   }
   return(result);
