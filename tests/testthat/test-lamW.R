@@ -1,6 +1,6 @@
-PrincipleBranchAnswers <- runif(30000, min = -1, max = 703.227)
+PrincipleBranchAnswers <- runif(30000, min = -1, max = 703.22703310477016)
 PrincipleBranchTests <- PrincipleBranchAnswers * exp(PrincipleBranchAnswers)
-SecondaryBranchAnswers <- runif(30000, min = -703.227, max = -1)
+SecondaryBranchAnswers <- runif(30000, min = -714.96865723796657, max = -1)
 SecondaryBranchTests <- SecondaryBranchAnswers * exp(SecondaryBranchAnswers)
 
 context("Testing lambertW")
@@ -23,16 +23,23 @@ test_that("Function behaves properly near asymptotes", {
   Vm1 <- lambertWm1(L)
   expect_equal(V0 * exp(V0), L)
   expect_equal(Vm1 * exp(Vm1), L)
-  Vm1 <- seq(-703, -703.227, -5e-6)
+  Vm1 <- seq(-714, -714.96865, -3e-5)
   Vm1E <- Vm1 * exp(Vm1)
   LVm1 <- lambertWm1(Vm1E)
   expect_equal(Vm1, LVm1)
 })
 
+test_that("Function behaves properly at asymptotes", {
+  expect_equal(lambertW0(Inf), Inf)
+  expect_equal(lambertWm1(0), -Inf)
+})
+
 test_that("NaNs are returned for values outside domain", {
+  expect_true(is.nan(lambertW0(-Inf)))
+  expect_true(is.nan(lambertWm1(-Inf)))
+  expect_true(is.nan(lambertWm1(Inf)))
   expect_true(is.nan(lambertW0(-1)))
   expect_true(is.nan(lambertWm1(-1)))
-  expect_equal(lambertWm1(0), -Inf)
   expect_true(is.nan(lambertWm1(1)))
   expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
 })
