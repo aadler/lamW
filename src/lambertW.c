@@ -39,9 +39,15 @@ underflow and return NaN
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
+#include <stdbool.h> // for bool
 #include <Rmath.h>
 #include <R_ext/Rdynload.h>
-#include <omp.h>
+
+#ifdef _OPENMP
+  #include <omp.h>
+#else
+  #define omp_get_num_threads() 1
+#endif
 
 const double EPS = 2.2204460492503131e-16;
 const double M_1_E = 1.0 / M_E;
@@ -100,17 +106,16 @@ double HalleyIter(double x, double w_guess){
   return(w);
 }
 
-// [[Rcpp::export]]
 SEXP lambertW0_C(SEXP x) {
   const int n = LENGTH(x);
   int i;
   double *px = REAL(x);
   double w;
   SEXP result = PROTECT(allocVector(REALSXP, n));
-  double *presult = REAL(result)
-//#pragma omp parallel for schedule(static) default(shared) private(i, w)
+  double *presult = REAL(result);
+#pragma omp parallel for schedule(static) default(shared) private(i, w)
   for (i = 0; i < n; ++i) {
-    if (px[i] == R_PosInf)) {
+    if (px[i] == R_PosInf) {
       presult[i] = R_PosInf;
     } else if (px[i] < -M_1_E) {
       presult[i] = R_NaN;
@@ -148,15 +153,14 @@ SEXP lambertW0_C(SEXP x) {
   return result;
 }
 
-// [[Rcpp::export]]
-SEXP lambertWm1_C(SEXP x){
+extern SEXP lambertWm1_C(SEXP x){
   const int n = LENGTH(x);
   int i;
   double *px = REAL(x);
   double w;
   SEXP result = PROTECT(allocVector(REALSXP, n));
-  double *presult = REAL(result)
-//#pragma omp parallel for schedule(static) default(shared) private(i, w)
+  double *presult = REAL(result);
+#pragma omp parallel for schedule(static) default(shared) private(i, w)
   for (i = 0; i < n; ++i) {
     if (px[i] == 0) {
       presult[i] = R_NegInf;
@@ -177,4 +181,18 @@ SEXP lambertWm1_C(SEXP x){
   }
   UNPROTECT(1);
   return result;
+}
+
+static const R_CallMethodDef CallEntries[] = {
+  {"lambertW0_C",   (DL_FUNC) &lambertW0_C,   1},
+  {"lambertWm1_C",  (DL_FUNC) &lambertWm1_C,  1},
+  {NULL,            NULL,                     0}
+};
+
+void R_init_lamW(DllInfo *dll) {
+  R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+  R_useDynamicSymbols(dll, FALSE);
+  R_forceSymbols(dll, TRUE);
+  R_RegisterCCallable("lamW", "lambertW0_C", (DL_FUNC) &lambertW0_C);
+  R_RegisterCCallable("lamW", "lambertWm1_C", (DL_FUNC) &lambertWm1_C);
 }
