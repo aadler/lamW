@@ -56,7 +56,7 @@ const double M_1_E = 1.0 / M_E;
 
 double FritschIter(double x, double w_guess){
   double w = w_guess;
-  int MaxEval = 3;
+  int MaxEval = 4;
   bool CONVERGED = false;
   double k = 2.0 / 3.0;
   int i = 0;
