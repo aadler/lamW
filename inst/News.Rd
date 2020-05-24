@@ -2,15 +2,20 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
-\section{Version 1.3.1 ()}{
+\section{Version 1.3.1 (2020-05-24)}{
   \subsection{Added}{
     \itemize{
+      \item Use R magic words and Rcpp sugar instead of calls to STD
+      \item Added more tests near asymptotes and for real vs. integer
       \item Added ORCID to DESCRIPTION
     }
   }
   \subsection{Changed}{
     \itemize{
-      \item Refactored old nomenclature; perhaps that will allow NEWS to render.
+      \item Reduced max interations in some loops as convergence acheived more quickly
+      \item Refactored old nomenclature
+      \item Cleaned code for whitespace and unnecessary comments
+      \item Spellcheck and minor cleanup of help file
     }
   }
 }

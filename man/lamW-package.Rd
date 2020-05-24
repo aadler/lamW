@@ -12,9 +12,9 @@
 \tabular{ll}{
 Package: \tab lamW\cr
 Type: \tab Package\cr
-Version: \tab 1.3.1.9000\cr
-Date: \tab 2020-99-99\cr
-License: \tab BSD_2_clause \cr
+Version: \tab 1.3.1\cr
+Date: \tab 2020-05-24\cr
+License: \tab BSD_2_clause\cr
 }
 }
 \author{Avraham Adler \email{Avraham.Adler@gmail.com}}
