@@ -37,7 +37,6 @@ underflow and return NaN
 */
 
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::depends(RcppParallel)]]
 #include <Rcpp.h>
 #include <RcppParallel.h>
 #include <cmath>
@@ -147,7 +146,7 @@ double lambertWm1_CS(double x){
   if (x == 0) {
     result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
-    result =R_NaN;
+    result = R_NaN;
   } else if (fabs(x + M_1_E) < 4.0 * EPS) {
     result = -1.0;
   } else {
