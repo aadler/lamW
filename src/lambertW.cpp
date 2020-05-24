@@ -104,7 +104,7 @@ double HalleyIter(double x, double w_guess){
 double lambertW0_CS(double x) {
   double result;
   double w;
-  if (Rcpp::traits::is_infinite<REALSXP>(x) && x > 0.0) {
+  if (x == R_PosInf) {
     result = R_PosInf;
   } else if (x < -M_1_E) {
     result = R_NaN;
@@ -143,7 +143,7 @@ double lambertW0_CS(double x) {
 double lambertWm1_CS(double x){
   double result;
   double w;
-  if (x == 0) {
+  if (x == 0.0) {
     result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
     result = R_NaN;
