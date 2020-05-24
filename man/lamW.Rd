@@ -1,9 +1,7 @@
 \name{lambertW}
 \alias{lambertW0}
 \alias{lambertWm1}
-\title{
-Lambert-W Function
-}
+\title{Lambert-W Function}
 \description{
 The Lambert-W function is defined as the multivalued inverse of the function \eqn{z = f(W) = We^w}{z = f(W) = W*exp(W)}. The function has two branches. The principal branch is defined on the interval \eqn{[-\frac{1}{e}, \infty)}{[-1/e, Infinity)} and is always greater than -1. The second branch is defined on the interval \eqn{[-\frac{1}{e}, 0)}{[-1/e, 0)} and is always less than -1. The real-valued function is not defined for values less than \eqn{-\frac{1}{e}}{-1/e}.
 }
