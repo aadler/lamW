@@ -16,5 +16,6 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageInstallArgs: --no-multiarch --with-keep.source
-PackageBuildArgs: --resave-data="best" --compact-vignettes="both"
+PackageBuildArgs: --resave-data="best" --compact-vignettes="both" --md5
+PackageBuildBinaryArgs: --preclean --clean --resave-data --compact-docs
 PackageCheckArgs: --as-cran --force-multiarch
