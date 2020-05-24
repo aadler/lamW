@@ -20,9 +20,9 @@ The Lambert-W function is defined for all real \eqn{x \geq -\frac{1}{e}}{x >= -1
 Both functions return the appropriate values in the intervals for which they are defined. Outside of those intervals, they will return \code{NaN}, except that \code{lambertW0(Inf)} will return its limit \code{Inf} and \code{lambertWm1(0)} will return its limit -\code{Inf}.
 }
 \references{
-Corless, R. M., Gonnet, G. H., Hare, D. E., Jeffrey, D. J., Knuth, D. E. 1996 "On the Lambert W function", \emph{Advances in Computational Mathematics}, \bold{5}, 329--359, Springer
+Corless, R. M., Gonnet, G. H., Hare, D. E., Jeffrey, D. J., Knuth, D. E. 1996 "On the Lambert W function", \emph{Advances in Computational Mathematics}, \bold{5}, 329--359, Springer <doi:10.1007/BF02124750>
 
-Veberic, D. 2012 "Lambert W function for applications in physics", \emph{Computer Physics Communications}, \bold{183}(12), 2622--2628.
+Veberic, D. 2012 "Lambert W function for applications in physics", \emph{Computer Physics Communications}, \bold{183}(12), 2622--2628. <arXiv:1209.0735>
 }
 \author{
 Avraham Adler \email{Avraham.Adler@gmail.com}
