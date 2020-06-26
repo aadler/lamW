@@ -1,6 +1,6 @@
-PrincipleBranchAnswers <- runif(30000, min = -1, max = 703.22703310477016)
+PrincipleBranchAnswers <- runif(5000, min = -1, max = 703.22703310477016)
 PrincipleBranchTests <- PrincipleBranchAnswers * exp(PrincipleBranchAnswers)
-SecondaryBranchAnswers <- runif(30000, min = -714.96865723796657, max = -1)
+SecondaryBranchAnswers <- runif(5000, min = -714.96865723796657, max = -1)
 SecondaryBranchTests <- SecondaryBranchAnswers * exp(SecondaryBranchAnswers)
 
 context("Testing lambertW")

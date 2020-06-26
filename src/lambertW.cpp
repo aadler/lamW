@@ -39,7 +39,6 @@ underflow and return NaN
 // [[Rcpp::interfaces(r, cpp)]]
 #include <Rcpp.h>
 #include <RcppParallel.h>
-#include <cmath>
 
 using namespace Rcpp;
 using namespace RcppParallel;
@@ -56,17 +55,17 @@ const double M_1_E = 1.0 / M_E;
 
 double FritschIter(double x, double w_guess){
   double w = w_guess;
-  int MaxEval = 4;
+  int MaxEval = 6;
   bool CONVERGED = false;
   double k = 2.0 / 3.0;
   int i = 0;
   do {
-    double z = log(x / w) - w;
+    double z = std::log(x / w) - w;
     double w1 = w + 1.0;
     double q = 2.0 * w1 * (w1 + k * z);
     double qz = q - z;
     double e = z / w1 * qz / (qz - z);
-    CONVERGED = fabs(e) <= EPS;
+    CONVERGED = std::abs(e) <= EPS;
     w *= (1.0 + e);
     ++i;
   } while (!CONVERGED && i < MaxEval);
@@ -86,15 +85,15 @@ double FritschIter(double x, double w_guess){
 
 double HalleyIter(double x, double w_guess){
   double w = w_guess;
-  int MaxEval = 7;
+  int MaxEval = 12;
   bool CONVERGED = false;
   int i = 0;
   do {
-    double ew = exp(w);
+    double ew = std::exp(w);
     double w1 = w + 1.0;
     double f0 = w * ew - x;
     f0 /= ((ew * w1) - (((w1 + 1.0) * f0) / (2.0 * w1))); // Corliss et al. 5.9
-    CONVERGED = fabs(f0) <= EPS;
+    CONVERGED = std::abs(f0) <= EPS;
     w -= f0;
     ++i;
   } while (!CONVERGED && i < MaxEval);
@@ -108,7 +107,7 @@ double lambertW0_CS(double x) {
     result = R_PosInf;
   } else if (x < -M_1_E) {
     result = R_NaN;
-  } else if (fabs(x + M_1_E) < 4.0 * EPS) {
+  } else if (std::abs(x + M_1_E) < 4.0 * EPS) {
     result = -1.0;
   } else if (x <= M_E - 0.5) {
       /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
@@ -116,12 +115,12 @@ double lambertW0_CS(double x) {
       Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
       Converted to digits to reduce needed operations
       */
-    double p = sqrt(2.0 * (M_E * x + 1.0));
+    double p = std::sqrt(2.0 * (M_E * x + 1.0));
     double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p +
                     0.5793838862559242) * p - 1.0;
     double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1.0;
     w = Numer / Denom;
-    if (fabs(x) <= 7e-3) {
+    if (std::abs(x) <= 7e-3) {
       /* Use Halley step near 0 as this version of Fritsch may underflow */
       result = HalleyIter(x, w);
     } else {
@@ -129,8 +128,8 @@ double lambertW0_CS(double x) {
     }
   } else {
     /* Use first five terms of Corliss et al. 4.19 */
-    w = log(x);
-    double L_2 = log(w);
+    w = std::log(x);
+    double L_2 = std::log(w);
     double L_3 = L_2 / w;
     double L_3_sq = L_3 * L_3;
     w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq /
@@ -147,12 +146,12 @@ double lambertWm1_CS(double x){
     result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
     result = R_NaN;
-  } else if (fabs(x + M_1_E) < 4.0 * EPS) {
+  } else if (std::abs(x + M_1_E) < 4.0 * EPS) {
     result = -1.0;
   } else {
     /* Use first five terms of Corliss et al. 4.19 */
-    w = log(-x);
-    double L_2 = log(-w);
+    w = std::log(-x);
+    double L_2 = std::log(-w);
     double L_3 = L_2 / w;
     double L_3_sq = L_3 * L_3;
     w += -L_2 + L_3 + 0.5 * L_3_sq - L_3 / w + L_3 / (w * w) - 1.5 * L_3_sq /
