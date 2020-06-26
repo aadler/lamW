@@ -15,7 +15,8 @@ LaTeX: pdfLaTeX
 StripTrailingWhitespace: Yes
 
 BuildType: Package
-PackageInstallArgs: --no-multiarch --with-keep.source
-PackageBuildArgs: --resave-data="best" --compact-vignettes="both" --md5
-PackageBuildBinaryArgs: --preclean --clean --resave-data --compact-docs
-PackageCheckArgs: --as-cran --force-multiarch
+PackageUseDevtools: Yes
+PackageInstallArgs: --no-multiarch --with-keep.source --clean --preclean
+PackageBuildArgs: --md5 --resave-data
+PackageBuildBinaryArgs: --clean --preclean
+PackageCheckArgs: --as-cran --timings
