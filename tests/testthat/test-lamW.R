@@ -17,6 +17,11 @@ test_that("Function behaves properly near 0", {
   expect_equal(V0, LV0)
 })
 
+test_that("Function behaves properly near -1/e", {
+  expect_equal(lambertW0(-1/exp(1)), -1)
+  expect_equal(lambertWm1(-1/exp(1)), -1)
+})
+
 test_that("Function behaves properly near asymptotes", {
   L <- seq(1e-6 - exp(-1), -0.25, 3e-6)
   V0 <- lambertW0(L)

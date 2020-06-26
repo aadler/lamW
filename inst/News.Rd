@@ -17,7 +17,7 @@
   \subsection{Added}{
     \itemize{
       \item Added travis, appveyor, and codecovr
-      \item Added check for package version
+      \item Added check for package version and behavior at -1/e
       \item explicit calls to \code{std::} in the C++ code
     }
   }
