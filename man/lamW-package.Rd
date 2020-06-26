@@ -9,14 +9,13 @@
 \packageDescription{lamW}
 }
 \details{
-\tabular{ll}{
-Package: \tab lamW\cr
-Type: \tab Package\cr
-Version: \tab 1.3.2\cr
-Date: \tab 2020-05-25\cr
-License: \tab BSD_2_clause\cr
+The DESCRIPTION file:
+\packageDESCRIPTION{lamW}
+\packageIndices{lamW}
 }
+\author{
+\packageAuthor{lamW}
+Maintainer: \packageMaintainer{lamW}
 }
-\author{Avraham Adler \email{Avraham.Adler@gmail.com}}
 \keyword{package}
 \keyword{NumericalMathematics}
