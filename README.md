@@ -1,6 +1,6 @@
 <!-- badges: start -->
-[(https://www.r-pkg.org/badges/version/lamW)](https://CRAN.R-project.org/package=lamW)
-[(https://bestpractices.coreinfrastructure.org/projects/2022/badge)](https://bestpractices.coreinfrastructure.org/projects/2022)
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version/lamW)](https://CRAN.R-project.org/package=lamW)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2022/badge)](https://bestpractices.coreinfrastructure.org/projects/2022)
 [![Travis build status](https://travis-ci.com/aadler/lamW.svg?branch=master)](https://travis-ci.com/aadler/lamW)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/aadler/lamW?branch=master&svg=true)](https://ci.appveyor.com/project/aadler/lamW)
 [![Codecov test coverage](https://codecov.io/gh/aadler/lamW/branch/master/graph/badge.svg)](https://codecov.io/gh/aadler/lamW?branch=master)
