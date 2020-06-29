@@ -19,7 +19,7 @@ significant speed.
 If you use the package, please cite it as:
 
   Avraham Adler (2015). lamW: Lambert-W Function. R package version 1.3.3.
-  https://bitbucket.org/aadler/lamw
+  https://github.com/aadler/lamW
 
 A BibTeX entry for LaTeX users is:
 
