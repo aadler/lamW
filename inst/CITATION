@@ -7,11 +7,11 @@ citEntry(entry        = "Manual",
                                             comment = c(ORCID = "0000-0002-3039-0703")))),
          year         = "2015",
          url          = "https://CRAN.R-project.org/package=lamW",
-         note         = "R package version 1.3.3",
+         note         = "R package version 2.0.0",
 
          textVersion  =
            paste("Avraham Adler (2015).",
                  "lamW: Lambert-W Function.",
-                 "R package version 1.3.3.",
+                 "R package version 2.0.0.",
                  "https://CRAN.R-project.org/package=lamW")
 )

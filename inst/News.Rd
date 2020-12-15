@@ -2,6 +2,16 @@
 \alias{NEWS}
 \title{NEWS file for the lamW package}
 
+\section{Version 2.0.0 (2020-12-15)}{
+  \subsection{Changed}{
+    \itemize{
+      \item Used series expansion around 0 for more accurate return value for
+      \eqn{x \leq 10^{-16}} (Thanks Jerry Lewis!)
+      \item Converted continuous integration to Github actions
+    }
+  }
+}
+
 \section{Version 1.3.3 (2020-06-26)}{
   \subsection{Fixed}{
     \itemize{
