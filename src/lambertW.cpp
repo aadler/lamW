@@ -36,7 +36,6 @@ unavailable. Need to retain Halley step for -7e-3 < x 7e-3 where the Fritsch may
 underflow and return NaN
 */
 
-// [[Rcpp::interfaces(r, cpp)]]
 #include <Rcpp.h>
 #include <RcppParallel.h>
 
