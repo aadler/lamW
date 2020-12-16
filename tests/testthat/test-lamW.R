@@ -3,8 +3,6 @@ PrincipleBranchTests <- PrincipleBranchAnswers * exp(PrincipleBranchAnswers)
 SecondaryBranchAnswers <- runif(5000, min = -714.96865723796657, max = -1)
 SecondaryBranchTests <- SecondaryBranchAnswers * exp(SecondaryBranchAnswers)
 
-context("Testing lambertW")
-
 test_that("Functions return proper values", {
   expect_equal(lambertW0(PrincipleBranchTests), PrincipleBranchAnswers)
   expect_equal(lambertWm1(SecondaryBranchTests), SecondaryBranchAnswers)
@@ -15,6 +13,12 @@ test_that("Function behaves properly near 0", {
   V0E <- V0 * exp(V0)
   LV0 <- lambertW0(V0E)
   expect_equal(V0, LV0)
+})
+
+test_that("W0 behaves properly VERY close to 0", {
+  expect_equal(lambertW0(1e-275), 1e-275)
+  expect_equal(lambertW0(7e-48), 7e-48)
+  expect_equal(lambertW0(-3.81e-71), -3.81e-71)
 })
 
 test_that("Function behaves properly near -1/e", {
