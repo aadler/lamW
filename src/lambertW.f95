@@ -177,17 +177,21 @@ contains
           call set_inf(l)
       else if (x < -M1E) then
           call set_nan(l)
-      else if (abs(x + M1E) < FOUR * EPS) then
+      else if (abs(x + M1E) < TWO * EPS) then
           l = -ONE
       else if (x <= (ME - HALF)) then
-          p = sqrt(TWO * (ME * x + ONE))
-          Numer = ((N(1) * p + N(2)) * p + N(3)) * p - ONE
-          Denom = (D(1) * p + D(2)) * p + ONE
-          w = Numer / Denom
-          if (abs(x) <= 3e-4_c_double) then
-              l = halley_f(x, w)
+          if (abs(x) <= 1e-16_c_double) then
+              l = x
           else
-              l = fritsch_f(x, w)
+              p = sqrt(TWO * (ME * x + ONE))
+              Numer = ((N(1) * p + N(2)) * p + N(3)) * p - ONE
+              Denom = (D(1) * p + D(2)) * p + ONE
+              w = Numer / Denom
+              if (abs(x) <= 3e-4_c_double) then
+                  l = halley_f(x, w)
+              else
+                  l = fritsch_f(x, w)
+              end if
           end if
       else
     ! Use first five terms of Corliss et al. 4.19
@@ -248,7 +252,7 @@ contains
               call set_neginf(lamwv(i))
           else if (x(i) < -M1E .or. x(i) > ZERO) then
               call set_nan(lamwv(i))
-          else if (abs(x(i) + M1E) < FOUR * EPS) then
+          else if (abs(x(i) + M1E) < TWO * EPS) then
               lamwv(i) = -ONE
           else
     ! Use first five terms of Corliss et al. 4.19

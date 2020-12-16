@@ -66,4 +66,3 @@ void R_init_delaporte(DllInfo *dll) {
     R_useDynamicSymbols(dll, FALSE);
     R_forceSymbols(dll, TRUE);
 }
-
