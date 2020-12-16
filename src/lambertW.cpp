@@ -110,16 +110,6 @@ double lambertW0_CS(double x) {
   } else if (std::abs(x + M_1_E) < 2.0 * EPS) {
     result = -1.0;
   } else if (x <= M_E - 0.5) {
-      /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
-      Numerator: -10189 / 303840 * p^3 + 40529 / 303840 * p^2 + 489 / 844 * p-1
-      Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
-      Converted to digits to reduce needed operations
-      */
-    double p = std::sqrt(2.0 * (M_E * x + 1.0));
-    double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p +
-                    0.5793838862559242) * p - 1.0;
-    double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1.0;
-    w = Numer / Denom;
     if (std::abs(x) <= 1e-16) {
       /* This close to 0 the W_0 branch is best estimated by its Taylor/Pade
        * expansion whose first term is the value x and remaining terms are
@@ -127,11 +117,23 @@ double lambertW0_CS(double x) {
        * https://math.stackexchange.com/questions/1700919/how-to-derive-the-lambert-w-function-series-expansion
        */
       result = x;
-    } else if (std::abs(x) <= 7e-3) {
-      /* Use Halley step near 0 as this version of Fritsch may underflow */
-      result = HalleyIter(x, w);
     } else {
-      result = FritschIter(x, w);
+      /* Use expansion in Corliss 4.22 to create (3, 2) Pade approximant
+      Numerator: -10189 / 303840 * p^3 + 40529 / 303840 * p^2 + 489 / 844 * p-1
+      Denominator: -14009 / 303840 * p^2 + 355 / 844 * p + 1
+      Converted to digits to reduce needed operations
+      */
+      double p = std::sqrt(2.0 * (M_E * x + 1.0));
+      double Numer = ((-0.03353409689310163 * p + 0.1333892838335966) * p +
+                      0.5793838862559242) * p - 1.0;
+      double Denom = (-0.04610650342285413 * p + 0.4206161137440758) * p + 1.0;
+      w = Numer / Denom;
+      if (std::abs(x) <= 7e-3) {
+        /* Use Halley step near 0 as this version of Fritsch may underflow */
+        result = HalleyIter(x, w);
+      } else {
+        result = FritschIter(x, w);
+      }
     }
   } else {
     /* Use first five terms of Corliss et al. 4.19 */
