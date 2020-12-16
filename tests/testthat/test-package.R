@@ -1,4 +1,3 @@
-context("Package Maintenance")
 test_that("Version", {
   expect_match(toBibtex(citation('lamW')),
                as.character(packageVersion('lamW')),
