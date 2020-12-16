@@ -153,7 +153,7 @@ double lambertWm1_CS(double x){
     result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
     result = R_NaN;
-  } else if (std::abs(x + M_1_E) < 4.0 * EPS) {
+  } else if (std::abs(x + M_1_E) < 2.0 * EPS) {
     result = -1.0;
   } else {
     /* Use first five terms of Corliss et al. 4.19 */
