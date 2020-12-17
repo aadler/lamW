@@ -54,6 +54,6 @@ test_that("NaNs are returned for values outside domain", {
 })
 
 test_that("Integers are converted to reals for principle branch", {
-  expect_equal(lambertW0(c(-1, 0, 1, 2, 3, 4)),
-               lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)))
+  expect_equal(lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)),
+               lambertW0(c(-1, 0, 1, 2, 3, 4)))
 })
