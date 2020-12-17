@@ -40,6 +40,9 @@ underflow and return NaN
 #include <Rcpp.h>
 #include <RcppParallel.h>
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 using namespace Rcpp;
 using namespace RcppParallel;
 
