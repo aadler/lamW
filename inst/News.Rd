@@ -1,12 +1,15 @@
 \name{NEWS}
 \alias{NEWS}
+\alias{Changelog}
 \title{NEWS file for the lamW package}
 
-\section{Version 2.0.0 (2020-12-15)}{
+\section{Version 2.0.0 (2020-12-17)}{
   \subsection{Changed}{
     \itemize{
       \item Used series expansion around 0 for more accurate return value for
-      \eqn{x \leq 10^{-16}} (Thanks Jerry Lewis!)
+      \eqn{x \leq 10^{-16}} (thanks to Jerry Lewis)
+      \item Contracted region around \eqn{\frac{-1}{e}}{-1/e} which returns -1
+      to \code{Machine$double.eps}
       \item Converted continuous integration to Github actions
     }
   }

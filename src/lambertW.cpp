@@ -110,7 +110,7 @@ double lambertW0_CS(double x) {
     result = R_PosInf;
   } else if (x < -M_1_E) {
     result = R_NaN;
-  } else if (std::abs(x + M_1_E) < 2.0 * EPS) {
+  } else if (std::abs(x + M_1_E) <= EPS) {
     result = -1.0;
   } else if (x <= M_E - 0.5) {
     if (std::abs(x) <= 1e-16) {
@@ -158,7 +158,7 @@ double lambertWm1_CS(double x){
     result = R_NegInf;
   } else if (x < -M_1_E || x > 0.0) {
     result = R_NaN;
-  } else if (std::abs(x + M_1_E) < 2.0 * EPS) {
+  } else if (std::abs(x + M_1_E) <= EPS) {
     result = -1.0;
   } else {
     /* Use first five terms of Corliss et al. 4.19 */
