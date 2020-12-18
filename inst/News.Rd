@@ -3,7 +3,7 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
-\section{Version 2.0.0 (2020-12-17)}{
+\section{Version 2.0.0 (2020-12-18)}{
   \subsection{Changed}{
     \itemize{
       \item Used series expansion around 0 for more accurate return value for
@@ -126,7 +126,7 @@
     \itemize{
       \item Update to initial release
       \item Adjust NEWS to more closely follow
-      \href{http://keepachangelog.com/}{keep a changelog} suggestions
+      \href{https://keepachangelog.com/}{keep a changelog} suggestions
       \item Removed mention of LambertW and its importing the \code{gsl} package
       from the documentation as it now imports this package instead.
 
