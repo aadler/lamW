@@ -3,7 +3,7 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
-\section{Version 2.0.0 (2020-12-18)}{
+\section{Version 2.0.0 (2021-01-05)}{
   \subsection{Changed}{
     \itemize{
       \item Used series expansion around 0 for more accurate return value for
@@ -11,6 +11,7 @@
       \item Contracted region around \eqn{\frac{-1}{e}}{-1/e} which returns -1
       to \code{Machine$double.eps}
       \item Converted continuous integration to Github actions
+      \item Allow use of LTO
     }
   }
 }
