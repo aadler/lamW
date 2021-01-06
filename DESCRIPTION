@@ -18,4 +18,3 @@ NeedsCompilation: yes
 URL: https://github.com/aadler/lamW
 BugReports: https://github.com/aadler/lamW/issues
 Config/testthat/edition: 3
-UseLTO: yes
