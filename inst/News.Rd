@@ -11,7 +11,6 @@
       \item Contracted region around \eqn{\frac{-1}{e}}{-1/e} which returns -1
       to \code{Machine$double.eps}
       \item Converted continuous integration to Github actions
-      \item Allow use of LTO
     }
   }
 }
