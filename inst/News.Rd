@@ -7,7 +7,7 @@
   \subsection{Changed}{
     \itemize{
       \item Used series expansion around 0 for more accurate return value for
-      \eqn{x \le 10^{-16}} (thanks to Jerry Lewis)
+      \eqn{x \le 10^{-16}}{x \le 1e-16} (thanks to Jerry Lewis)
       \item Contracted region around \eqn{\frac{-1}{e}}{-1/e} which returns -1
       to \code{Machine$double.eps}
       \item Converted continuous integration to Github actions
