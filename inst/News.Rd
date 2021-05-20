@@ -3,6 +3,16 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
+\section{Version 2.1.0 (2021-05-20)}{
+  \subsection{Changed}{
+    \itemize{
+      \item Obtained access to original Fritsch paper and used supplied Pade
+      expansion (equation 5) for values close to 0, eliminating need for Halley
+      step close to 0 and speeding up code slightly
+    }
+  }
+}
+
 \section{Version 2.0.0 (2021-01-05)}{
   \subsection{Changed}{
     \itemize{
