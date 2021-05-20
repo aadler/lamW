@@ -4,12 +4,13 @@
 \title{Lambert-W Function}
 \description{
 The Lambert-W function is defined as the multivalued inverse of the function
-\eqn{z = f(W) = We^w}{z = f(W) = W*exp(W)}. The function has two branches. The
+\eqn{z = f(W) = We^W}{z = f(W) = W * exp(W)}. The function has two branches. The
 principal branch is defined on the interval
-\eqn{[-\frac{1}{e}, \infty)}{[-1/e, Infinity)} and is always greater than -1.
-The second branch is defined on the interval \eqn{[-\frac{1}{e}, 0)}{[-1/e, 0)}
-and is always less than -1. The real-valued function is not defined for values
-less than \eqn{-\frac{1}{e}}{-1/e}.
+\eqn{[-\frac{1}{e}, \infty)}{[-1/e, Infinity)} and is always greater than or
+equal to-1. The second branch is defined on the interval
+\eqn{[-\frac{1}{e}, 0)}{[-1/e, 0)} and is always less than or equal to-1. The
+real-valued function is not defined for values less than
+\eqn{-\frac{1}{e}}{-1/e}.
 }
 \usage{
 lambertW0(x)
@@ -42,9 +43,10 @@ Corless, R. M., Gonnet, G. H., Hare, D. E., Jeffrey, D. J., Knuth, D. E.
 1996 "On the Lambert W function", \emph{Advances in Computational Mathematics},
 \bold{5}, 329--359, Springer <doi:10.1007/BF02124750>
 
-Veberic, D. 2012 "Lambert W function for applications in physics",
-\emph{Computer Physics Communications}, \bold{183}(12), 2622--2628.
-<arXiv:1209.0735>
+Fritsch, F. N.; Shafer, R. E. & Crowley, W. P.
+1973 "Solution of the transcendental equation (we^w = x)",
+\emph{Communications of the ACM}, \bold{16}, 123--124,
+Association for Computing Machinery (ACM) <doi:10.1145/361952.361970>
 }
 \author{
 Avraham Adler \email{Avraham.Adler@gmail.com}
