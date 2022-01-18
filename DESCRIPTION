@@ -13,8 +13,7 @@ Depends: R (>= 3.0.2)
 Imports: Rcpp, RcppParallel (>= 4.3.20)
 LinkingTo: Rcpp, RcppParallel (>= 4.3.20)
 SystemRequirements: GNU make
-Suggests: testthat, covr
+Suggests: covr, tinytest
 NeedsCompilation: yes
 URL: https://github.com/aadler/lamW
 BugReports: https://github.com/aadler/lamW/issues
-Config/testthat/edition: 3
