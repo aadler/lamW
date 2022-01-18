@@ -3,6 +3,16 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
+\section{Version 2.1.1 (2022-01-18)}{
+  \subsection{Changed}{
+    \itemize{
+      \item Converted test suite to \code{tinytest} framework to reduce
+      dependencies.
+      \item Added DOI and CFF for citation purposes
+    }
+  }
+}
+
 \section{Version 2.1.0 (2021-05-20)}{
   \subsection{Changed}{
     \itemize{
@@ -189,7 +199,9 @@
 }
 
 \section{Version 0.0.1 (2015-05-19)}{
-  \itemize{
-    \item Initial release
+  \subsection{Added}{
+    \itemize{
+      \item Initial release
+    }
   }
 }
