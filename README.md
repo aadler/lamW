@@ -1,13 +1,13 @@
 <!-- badges: start -->
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/lamW)](https://CRAN.R-project.org/package=lamW)
 [![](http://cranlogs.r-pkg.org/badges/last-month/lamW)](https://cran.r-project.org/package=lamW)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5874874.svg)](https://doi.org/10.5281/zenodo.5874874)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2022/badge)](https://bestpractices.coreinfrastructure.org/projects/2022)
 [![R-CMD-check](https://github.com/aadler/lamW/workflows/R-CMD-check/badge.svg)](https://github.com/aadler/lamW/actions)
-[![Codecov test coverage](https://codecov.io/gh/aadler/lamW/branch/master/graph/badge.svg)](https://codecov.io/gh/aadler/lamW?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/aadler/lamW/branch/master/graph/badge.svg)](https://app.codecov.io/gh/aadler/lamW?branch=master)
 <!-- badges: end -->
 
 # lamW
-
 **lamW** is an `R` package which calculates the real-valued branches of the
 [Lambert-W function](https://en.wikipedia.org/wiki/Lambert_W_function) without
 the need to install the entire GSL. It uses compiled code and 
@@ -32,7 +32,6 @@ A BibTeX entry for LaTeX users is:
     note = {R package version 2.1.1.},
   }
 ```
-
 ## Contributions
 Please ensure that all contributions comply with both
 [R and CRAN standards for packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html).
