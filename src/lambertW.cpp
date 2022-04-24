@@ -34,6 +34,7 @@ Fritsch, F. N.; Shafer, R. E. & Crowley, W. P.
  1973, 16, 123-124
 */
 
+// [[Rcpp::depends(RcppParallel)]]
 // [[Rcpp::interfaces(r, cpp)]]
 #include <Rcpp.h>
 #include <RcppParallel.h>
@@ -185,7 +186,7 @@ NumericVector lambertW0_C(NumericVector x) {
   // Lambert W0 functor (pass input and output matrixes)
   LW0 LW0(x, output);
   // call parallelFor to do the work
-  parallelFor(0, x.length(), LW0);
+  parallelFor(0, x.length(), LW0, 4);
   // return the output vector
   return output;
 }
@@ -197,7 +198,7 @@ NumericVector lambertWm1_C(NumericVector x) {
   // Lambert Wm1 functor (pass input and output matrixes)
   LWm1 LWm1(x, output);
   // call parallelFor to do the work
-  parallelFor(0, x.length(), LWm1);
+  parallelFor(0, x.length(), LWm1, 4);
   // return the output vector
   return output;
 }
