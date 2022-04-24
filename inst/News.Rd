@@ -3,6 +3,15 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
+\section{Version 2.1.1.9000 (2022-04-24)}{
+  \subsection{Changed}{
+    \itemize{
+      \item UNRELEASED
+      \item Adjusted TBB grain size to prevent parallelism for fewer than 4 elements
+    }
+  }
+}
+
 \section{Version 2.1.1 (2022-01-18)}{
   \subsection{Changed}{
     \itemize{
