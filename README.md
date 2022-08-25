@@ -44,7 +44,7 @@ This project attempts to follow the changelog system at
 [Keep a CHANGELOG](https://keepachangelog.com/)
 
 ### Dependencies
-This project intends to have as few dependancies as possible. Please consider
+This project intends to have as few dependencies as possible. Please consider
 that when writing code.
 
 ### Style
