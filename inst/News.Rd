@@ -3,11 +3,12 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
-\section{Version 2.1.1.9000 (2022-04-24)}{
+\section{Version 2.1.1.9001 (2022-08-25)}{
   \subsection{Changed}{
     \itemize{
       \item UNRELEASED
       \item Adjusted TBB grain size to prevent parallelism for fewer than 4 elements
+      \item Removed unneeded setup from R calls.
     }
   }
 }

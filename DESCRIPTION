@@ -1,8 +1,8 @@
 Package: lamW
 Type: Package
 Title: Lambert-W Function
-Version: 2.1.1.9000
-Date: 2022-04-24
+Version: 2.1.1.9001
+Date: 2022-08-25
 Authors@R: c(person(given="Avraham", family="Adler",role=c("aut", "cph", "cre"),
     email="Avraham.Adler@gmail.com", comment = c(ORCID = "0000-0002-3039-0703")))
 Description: Implements both real-valued branches of the Lambert-W function
