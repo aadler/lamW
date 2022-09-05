@@ -88,7 +88,7 @@ double lambertW0_CS(double x) {
       /* This close to 0 the W_0 branch is best estimated by its Taylor/Pade
        expansion whose first term is the value x and remaining terms are below
        machine double precision. See
-       https://math.stackexchange.com/questions/1700919/how-to-derive-the-lambert-w-function-series-expansion
+       https://math.stackexchange.com/questions/1700919
       */
       result = x;
     } else {
