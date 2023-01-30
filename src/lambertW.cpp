@@ -1,6 +1,6 @@
 /* lambertW.cpp
 
- Copyright (C) 2015, Avraham Adler
+Copyright (C) 2015, Avraham Adler
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
