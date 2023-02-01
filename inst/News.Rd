@@ -11,6 +11,7 @@
       elements.
       \item Removed unneeded setup from R calls.
       \item Cleaned up documenatation.
+      \item CITATION updated to use \code{bibentry} per CRAN request
     }
   }
 }
