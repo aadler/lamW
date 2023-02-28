@@ -46,12 +46,14 @@ expect_identical(lambertWm1(0), -Inf)
 
 # Test that NaNs are returned for values outside domain
 expect_true(is.nan(lambertW0(-Inf)))
+expect_true(is.nan(lambertW0(-1)))
+expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
 expect_true(is.nan(lambertWm1(-Inf)))
 expect_true(is.nan(lambertWm1(Inf)))
-expect_true(is.nan(lambertW0(-1)))
-expect_true(is.nan(lambertWm1(-1)))
-expect_true(is.nan(lambertWm1(1)))
-expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
+expect_true(is.nan(lambertWm1(-0.5)))
+expect_true(is.nan(lambertWm1(1.2)))
+# covr not registering previous two lines
+expect_true(is.nan(.Call("_lamW_lambertWm1_C", x = 0.5)))
 
 # Test that integers are converted to reals for principle branch
 expect_identical(lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)),
