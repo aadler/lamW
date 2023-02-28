@@ -1,17 +1,16 @@
 Package: lamW
 Type: Package
 Title: Lambert-W Function
-Version: 2.1.1.9001
-Date: 2022-08-25
+Version: 2.1.2
+Date: 2023-02-28
 Authors@R: c(person(given="Avraham", family="Adler",role=c("aut", "cph", "cre"),
     email="Avraham.Adler@gmail.com", comment = c(ORCID = "0000-0002-3039-0703")))
 Description: Implements both real-valued branches of the Lambert-W function
     (Corless et al, 1996) <doi:10.1007/BF02124750> without the need for
     installing the entire GSL.
 License: BSD_2_clause + file LICENSE
-Depends: R (>= 3.0.2)
-Imports: Rcpp, RcppParallel (>= 4.3.20)
-LinkingTo: Rcpp, RcppParallel (>= 4.3.20)
+Imports: Rcpp, RcppParallel
+LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make
 Suggests: covr, tinytest
 NeedsCompilation: yes
