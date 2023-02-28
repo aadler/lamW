@@ -3,15 +3,17 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
-\section{Version 2.1.1.9001 (2022-08-25)}{
+\section{Version 2.1.2 (2023-02-28)}{
   \subsection{Changed}{
     \itemize{
-      \item UNRELEASED
       \item Adjusted TBB grain size to prevent parallelism for fewer than 4
       elements.
-      \item Removed unneeded setup from R calls.
-      \item Cleaned up documenatation.
+      \item Streamlined C++ code to follow more logical ifelse cascade
+      \item Removed unneeded setup from C++ and R calls.
+      \item Cleaned up documentation.
       \item CITATION updated to use \code{bibentry} per CRAN request
+      \item Updated internal code to be more compliant with personal style guide
+      \item Updated Github actions
     }
   }
 }
