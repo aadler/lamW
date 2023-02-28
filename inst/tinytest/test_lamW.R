@@ -5,10 +5,14 @@ principleBranchTests <- principleBranchAnswers * exp(principleBranchAnswers)
 secondaryBranchAnswers <- runif(5000, min = -714.96865723796657, max = -1)
 secondaryBranchTests <- secondaryBranchAnswers * exp(secondaryBranchAnswers)
 
+# Test that function works properly in general
 expect_equal(lambertW0(principleBranchTests), principleBranchAnswers,
              tolerance = tol)
 expect_equal(lambertWm1(secondaryBranchTests), secondaryBranchAnswers,
              tolerance = tol)
+
+# Test that function works properly for larger numbers
+expect_equal(lambertW0(1000) * exp(lambertW0(1000)), 1000, tolerance = tol)
 
 # Test that function behaves properly near 0
 V0 <- seq(-2e-2, 2e-2, 2e-6)
@@ -50,8 +54,8 @@ expect_true(is.nan(lambertW0(-1)))
 expect_true(is.nan(lambertW0(c(1, -1)))[[2]])
 expect_true(is.nan(lambertWm1(-Inf)))
 expect_true(is.nan(lambertWm1(Inf)))
-expect_true(is.nan(lambertWm1(-0.5)))
-expect_true(is.nan(lambertWm1(1.2)))
+expect_true(is.nan(lambertWm1(-0.5))) # x < -M_1_E
+expect_true(is.nan(lambertWm1(1.2)))  # x > 0
 
 # Test that integers are converted to reals for principle branch
 expect_identical(lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)),
