@@ -9,7 +9,7 @@ Description: Implements both real-valued branches of the Lambert-W function
     (Corless et al, 1996) <doi:10.1007/BF02124750> without the need for
     installing the entire GSL.
 License: BSD_2_clause + file LICENSE
-Imports: Rcpp, RcppParallel
+Imports: Rcpp, RcppParallel, methods
 LinkingTo: Rcpp, RcppParallel
 SystemRequirements: GNU make
 Suggests: covr, tinytest
