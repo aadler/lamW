@@ -16,6 +16,13 @@
       \item Various grammar, linting, and unit test updates.
     }
   }
+  \subsection{Added}{
+    \itemize{
+      \item Added \code{methods} to \code{Suggests} as per
+      \href{https://github.com/aadler/lamW/pull/1}{PR1} (Thanks
+      \href{https://github.com/MichaelChirico}{Michael Chirico}).
+    }
+  }
 }
 
 \section{Version 2.1.2 (2023-02-28)}{
