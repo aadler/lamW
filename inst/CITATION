@@ -10,5 +10,5 @@ bibentry(bibtype     = "Manual",
          year         = "2015",
          url          = "https://CRAN.R-project.org/package=lamW",
          doi          = "10.5281/zenodo.5874874",
-         note         = "R package version 2.1.2"
+         note         = "R package version 2.2.0"
 )

@@ -17,7 +17,7 @@ significant speed.
 ## Citation
 If you use the package, please cite it as:
 
-  Avraham Adler (2015). lamW: Lambert-W Function. R package version 2.1.2.
+  Avraham Adler (2015). lamW: Lambert-W Function. R package version 2.2.0.
   https://CRAN.R-project.org/package=lamW doi: 10.5281/zenodo.5874874
 
 A BibTeX entry for LaTeX users is:
@@ -29,7 +29,7 @@ A BibTeX entry for LaTeX users is:
     year = {2015},
     url = {https://CRAN.R-project.org/package=lamW},
     doi = "10.5281/zenodo.5874874",
-    note = {R package version 2.1.2.},
+    note = {R package version 2.2.0.},
   }
 ```
 ## Contributions
