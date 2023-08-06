@@ -9,7 +9,7 @@
 
 \title{Internal lamW Functions}
 \description{
-  Internal lambert-W functions
+  Internal lamW functions
 }
 \details{
   These are not to be called directly by the user.
