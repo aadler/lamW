@@ -1,3 +1,6 @@
+# Copyright (c) 2015, Avraham Adler All rights reserved
+# SPDX-License-Identifier: BSD-2-Clause
+
 tol <- sqrt(.Machine$double.eps)
 # Test that functions return proper values
 principleBranchAnswers <- runif(5000, min = -1, max = 703.22703310477016)

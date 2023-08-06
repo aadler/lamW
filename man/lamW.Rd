@@ -1,3 +1,6 @@
+% Copyright (c) 2015, Avraham Adler All rights reserved
+% SPDX-License-Identifier: BSD-2-Clause
+
 \name{lambertW}
 \alias{lambertW0}
 \alias{lambertWm1}
