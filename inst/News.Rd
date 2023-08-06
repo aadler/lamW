@@ -3,6 +3,21 @@
 \alias{Changelog}
 \title{NEWS file for the lamW package}
 
+\section{Version 2.2.0 (2023-08-07)}{
+  \subsection{Changed}{
+    \itemize{
+      \item Replaced Fritsch Pade expansion with degree-six polynomial minimax
+      approximation for \eqn{x \in [-6.4\times 10^{-3}, 6.4\times 10^{-3}]}{x in
+      [-6.4e-3, 6.4e-3]} with true values based on the non-underflowing Halley
+      step. Should be faster than Halley iteration and more accurate than
+      Fritsch Pade.
+      \item Corrected initial guess for Fritsch step for \eqn{x \le e}. Does
+      not change results but may converge in one fewer step.
+      \item Various grammar, linting, and unit test updates.
+    }
+  }
+}
+
 \section{Version 2.1.2 (2023-02-28)}{
   \subsection{Changed}{
     \itemize{
