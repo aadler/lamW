@@ -75,6 +75,9 @@ double FritschIter(double x, double w){
   return(w);
 }
 
+// Do not include Halley in coverage testing since unused
+// nocov start
+
 /* Halley Iteration
  Given x, we want to find W such that Wexp(W) = x, so Wexp(W) - x = 0.
  We can use Halley iteration to find this root; to do so it needs first and
@@ -103,6 +106,7 @@ double HalleyIter(double x, double w_guess){
   } while (!CONVERGED && i < MaxEval);
   return(w);
 }
+// nocov end
 
 double lambertW0_CS(double x) {
   if (x == R_PosInf) {
