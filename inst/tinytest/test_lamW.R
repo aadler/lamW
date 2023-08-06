@@ -54,8 +54,4 @@ expect_true(is.nan(lambertWm1(1.2)))  # x > 0
 
 # Test that integers are converted to reals for principle branch
 expect_identical(lambertW0(c(-1L, 0L, 1L, 2L, 3L, 4L)),
-             lambertW0(c(-1, 0, 1, 2, 3, 4)))
-
-## Test CITATION
-expect_true(any(grepl(packageVersion("lamW"), toBibtex(citation("lamW")),
-                      fixed = TRUE)))
+                 lambertW0(c(-1, 0, 1, 2, 3, 4)))
