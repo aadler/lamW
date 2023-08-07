@@ -7,12 +7,13 @@
   \subsection{Changed}{
     \itemize{
       \item Replaced Fritsch Pade expansion with degree-six polynomial minimax
-      approximation for \eqn{x \in [-6.4\times 10^{-3}, 6.4\times 10^{-3}]}{x in
-      [-6.4e-3, 6.4e-3]} with true values based on the non-underflowing Halley
-      step. Should be faster than Halley iteration and more accurate than
-      Fritsch Pade.
-      \item Corrected initial guess for Fritsch step for \eqn{x \le e}. Does
-      not change results but may converge in one fewer step.
+      approximation for \eqn{x \in \left[-6.4\times 10^{-3}, 6.4\times 10^{-3}
+      \right]}{x in [-6.4e-3, 6.4e-3]} with true values based on the
+      non-underflowing Halley step. Should be faster than Halley iteration and
+      more accurate than the Fritsch Pade.
+      \item Corrected initial guess for Fritsch step for \eqn{6.4\times 10^{-3}
+      \lt x \le e}{6.4e-3 \lt x \le e}. Does not change results but may converge
+      in one fewer step.
       \item Various grammar, linting, and unit test updates.
     }
   }
