@@ -3,7 +3,6 @@
 
 \name{NEWS}
 \alias{NEWS}
-\alias{Changelog}
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
