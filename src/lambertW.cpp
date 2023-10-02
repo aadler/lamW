@@ -127,21 +127,31 @@ double lambertW0_CS(double x) {
     if (std::abs(x) <= 6.4e-3) {
       /* When this close to 0 the Fritsch iteration may underflow. Instead,
        * function will use degree-6 minimax polynomial approximation of Halley
-       *  iteration-based values. Should be more accurate by three orders of
-       *   magnitude than Fritsch's equation (5) in this range.
+       * iteration-based values. Should be more accurate by three orders of
+       * magnitude than Fritsch's equation (5) in this range.
        */
 
-      // Halley Code
+      // Minimax Approximation calculated using R package minimaxApprox 0.1.0
+      return((((((-1.0805085529250425e1 * x + 5.2100070265741278) * x -
+             2.6666665063383532) * x + 1.4999999657268301) * x -
+             1.0000000000016802) * x + 1.0000000000001752) * x +
+             2.6020852139652106e-18);
+
+      // Fritsch Pade Equation
+      // /* Use equation (5) in Fritsch */
+      // w = ((1.33333333333333333 * x + 1.0) * x) /
+      //   ((0.83333333333333333 * x + 2.33333333333333333) * x + 1.0);
+
+      /* Original Halley step. This is technically most accurate. However,
+       * using minimax approximation is faster and the difference should be
+       * below machine precision.
+       */
+
       // double p = std::sqrt(2.0 * (M_E * x + 1.0));
       // double Numer = (0.2787037037037037 * p + 0.311111111111111) * p - 1.0;
       // double Denom = (0.0768518518518518 * p + 0.688888888888889) * p + 1.0;
       // return(HalleyIter(x, Numer / Denom));
 
-      // Minimax Approximation calculated using R package minimaxApprox 0.1.0
-      return((((((-1.0805085529250425e1 * x + 5.2100070265741278) * x -
-        2.6666665063383532) * x + 1.4999999657268301) * x -
-        1.0000000000016802) * x + 1.0000000000001752) * x +
-        2.6020852139652106e-18);
     } else if (x <= M_E) {
       /* Use expansion in Corliss 4.22 to create (2, 2) Pade approximant.
        * Equation with a few extra terms is:
