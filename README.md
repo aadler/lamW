@@ -37,4 +37,4 @@ Please see
 [CONTRIBUTING](https://github.com/aadler/lamW/blob/master/CONTRIBUTING.md).
 
 ## Security
-Please see [SECURITY](https://github.com/aadler/lamW/blob/master/).
+Please see [SECURITY](https://github.com/aadler/lamW/blob/master/SECURITY.md).
