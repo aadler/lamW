@@ -6,6 +6,15 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
+\section{Version 2.2.1.9000 (2023-10-04)}{
+  \subsection{Changed}{
+    \itemize{
+      \item \code{NEWS} was not rendering on \acronym{CRAN} because the file
+      name used lowercase: \file{News.Rd} and not \file{NEWS.rd}.
+    }
+  }
+}
+
 \section{Version 2.2.1 (2023-10-04)}{
   \subsection{Changed}{
     \itemize{
