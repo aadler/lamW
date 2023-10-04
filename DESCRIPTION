@@ -16,3 +16,4 @@ Suggests: covr, tinytest, methods
 NeedsCompilation: yes
 URL: https://github.com/aadler/lamW
 BugReports: https://github.com/aadler/lamW/issues
+UseLTO: yes
