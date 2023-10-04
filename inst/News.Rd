@@ -6,14 +6,14 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
-\section{Version 2.3.0 (2023-10-02)}{
+\section{Version 2.2.1 (2023-10-04)}{
   \subsection{Changed}{
     \itemize{
-      \item Seems as if version 2.2.0 still used Halley step. Ensured that
-      minimax approximation is used.
       \item Removed line from \file{NEWS} which may have been preventing proper
       rendering on \acronym{CRAN}.
       \item added \code{$(LTO_OPT)} to \file{Makevars} and \file{Makevars.win}.
+      \item Cleaned up \file{README} and moved citation, contributions, and
+      security information to their own files.
     }
   }
 }

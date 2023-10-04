@@ -8,7 +8,7 @@ message: 'To cite package "lamW" in publications use:'
 type: software
 license: BSD-2-Clause
 title: 'lamW: Lambert-W Function'
-version: 2.3.0
+version: 2.2.1
 doi: 10.5281/zenodo.5874874
 abstract: Implements both real-valued branches of the Lambert-W function (Corless
   et al, 1996) <doi:10.1007/BF02124750> without the need for installing the entire
@@ -29,11 +29,11 @@ preferred-citation:
   year: '2015'
   url: https://CRAN.R-project.org/package=lamW
   doi: 10.5281/zenodo.5874874
-  notes: R package version 2.3.0
+  notes: R package version 2.2.1
 repository: https://CRAN.R-project.org/package=lamW
 repository-code: https://github.com/aadler/lamW
 url: https://github.com/aadler/lamW
-date-released: '2023-10-02'
+date-released: '2023-10-04'
 contact:
 - family-names: Adler
   given-names: Avraham
