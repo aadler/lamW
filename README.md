@@ -21,7 +21,7 @@ significant speed.
 
 ## Citation
 If you use the package, please cite it as per
-[CITATION](https://cran.r-project.org/web/packages/lamW/citation.html).
+[CITATION](https://CRAN.R-project.org/package=lamW/citation.html).
 
 ## Roadmap
 ### Major
