@@ -5,20 +5,24 @@
 \alias{lambertW0}
 \alias{lambertWm1}
 \title{Lambert-W Function}
+\encoding{UTF-8}
+
 \description{
 The Lambert-W function is defined as the multivalued inverse of the function
 \eqn{z = f(W) = We^W}{z = f(W) = W * exp(W)}. The function has two branches. The
 principal branch is defined on the interval
-\eqn{\left[-\frac{1}{e}, \infty\right)}{[-1/e, Infinity)} and is always greater
+\eqn{\left[-\frac{1}{e}, +\infty\right)}{[-1/e, +∞)} and is always greater
 than or equal to \eqn{-1}. The second branch is defined on the interval
 \eqn{\left[-\frac{1}{e}, 0\right)}{[-1/e, 0)} and is always less than or equal
 to \eqn{-1}. The real-valued function is not defined for values less than
 \eqn{-\frac{1}{e}}{-1/e}.
 }
+
 \usage{
 lambertW0(x)
 lambertWm1(x)
 }
+
 \arguments{
   \item{x}{\strong{numeric} vector of values}}
 \details{
@@ -35,12 +39,14 @@ simplifications. There are many applications in which the Lambert-W function is
 useful, such as combinatorics, physics, and hydrology. The interested reader is
 directed to the references for more detail.
 }
+
 \value{
 Both functions return the appropriate values in the intervals for which they are
 defined. Outside of those intervals, they will return \code{NaN}, except that
 \code{lambertW0(Inf)} will return its limit \code{Inf} and \code{lambertWm1(0)}
 will return its limit -\code{Inf}.
 }
+
 \references{
 Corless, R. M., Gonnet, G. H., Hare, D. E., Jeffrey, D. J., Knuth, D. E.
 1996 "On the Lambert W function", \emph{Advances in Computational Mathematics},
@@ -51,14 +57,17 @@ Fritsch, F. N.; Shafer, R. E. & Crowley, W. P.
 \emph{Communications of the ACM}, \bold{16}, 123--124,
 Association for Computing Machinery (ACM) <doi:10.1145/361952.361970>
 }
+
 \author{
 Avraham Adler \email{Avraham.Adler@gmail.com}
 }
+
 \seealso{
 This package provides similar functionality to the
 \code{\link[gsl:Lambert]{Lambert}} functions in the \pkg{gsl} package without
 having to obtain or install the entire \acronym{GSL}.
 }
+
 \examples{
 lambertW0(exp(1))      ## Should equal 1, as 1 * exp(1) = e.
 lambertW0(0)           ## Should equal 0, as 0 * exp(0) = 0.
