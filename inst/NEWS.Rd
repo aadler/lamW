@@ -9,8 +9,8 @@
 \section{Version 2.2.2 (2023-11-04)}{
   \subsection{Changed}{
     \itemize{
-      \item \code{NEWS} was not rendering on \acronym{CRAN} because the file
-      name used lowercase: \file{News.Rd} and not \file{NEWS.rd}.
+      \item \acronym{NEWS} was not rendering on \acronym{CRAN} because the file
+      name used lowercase, \file{News.Rd}, and not \file{NEWS.Rd}.
     }
   }
 }
