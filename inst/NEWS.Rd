@@ -6,11 +6,29 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
-\section{Version 2.2.2 (2023-11-20)}{
+\section{Version 2.2.3 (2023-11-28)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Package built with development version of \pkg{Rcpp} to remove
+      \acronym{CRAN}'s \dQuote{string literal} errors.
+    }
+  }
   \subsection{Changed}{
+    \itemize{
+      \item Corrected some headers in \file{NEWS.Rd}
+    }
+  }
+}
+
+\section{Version 2.2.2 (2023-11-20)}{
+  \subsection{Fixed}{
     \itemize{
       \item \acronym{NEWS} was not rendering on \acronym{CRAN} because the file
       name used lowercase, \file{News.Rd}, and not \file{NEWS.Rd}.
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
       \item Tweaked documentation.
     }
   }
@@ -30,6 +48,13 @@
 }
 
 \section{Version 2.2.0 (2023-08-07)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Corrected initial guess for Fritsch step for \eqn{6.4\times 10^{-3}
+      \lt x \le e}{6.4e-3 \lt x \le e}. Does not change results but may converge
+      in one fewer step.
+    }
+  }
   \subsection{Changed}{
     \itemize{
       \item Replaced Fritsch's \enc{Padé}{Pade} approximation with a degree-six
@@ -38,9 +63,6 @@
       on the non-underflowing Halley step. Should be faster than Halley
       iteration and more accurate than the Fritsch's \enc{Padé}{Pade}
       approximation.
-      \item Corrected initial guess for Fritsch step for \eqn{6.4\times 10^{-3}
-      \lt x \le e}{6.4e-3 \lt x \le e}. Does not change results but may converge
-      in one fewer step.
       \item Various grammar, linting, and unit test updates.
     }
   }
