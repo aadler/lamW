@@ -100,7 +100,7 @@ double HalleyIter(double x, double w_guess){
     double w1 = w + 1.0;
     double f0 = w * ew - x;
     f0 /= ((ew * w1) - (((w1 + 1.0) * f0) / (2 * w1))); /* Corliss et al. 5.9 */
-    CONVERGED = fabs(f0) <= EPS;
+    CONVERGED = std::abs(f0) <= EPS;
     w -= f0;
     ++i;
   } while (!CONVERGED && i < MaxEval);
