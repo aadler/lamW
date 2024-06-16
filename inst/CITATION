@@ -9,6 +9,6 @@ bibentry(bibtype     = "Manual",
          title        = "lamW: Lambert-W Function",
          year         = "2015",
          url          = "https://CRAN.R-project.org/package=lamW",
-         doi          = "10.5281/zenodo.5874874",
+         doi          = "10.32614/CRAN.package.lamW",
          note         = "R package version 2.2.3"
 )

@@ -1,18 +1,18 @@
-# -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.5.0
+# --------------------------------------------
+# CITATION file created with {cffr} R package
 # See also: https://docs.ropensci.org/cffr/
-# -----------------------------------------------------------
+# --------------------------------------------
  
 cff-version: 1.2.0
 message: 'To cite package "lamW" in publications use:'
 type: software
 license: BSD-2-Clause
 title: 'lamW: Lambert-W Function'
-version: 2.2.3
-doi: 10.5281/zenodo.5874874
+version: 2.2.4
+doi: 10.32614/CRAN.package.lamW
 abstract: Implements both real-valued branches of the Lambert-W function (Corless
-  et al, 1996) <doi:10.1007/BF02124750> without the need for installing the entire
-  GSL.
+  et al, 1996) <https://doi.org/10.1007/BF02124750> without the need for installing
+  the entire GSL.
 authors:
 - family-names: Adler
   given-names: Avraham
@@ -28,14 +28,15 @@ preferred-citation:
     orcid: https://orcid.org/0000-0002-3039-0703
   year: '2015'
   url: https://CRAN.R-project.org/package=lamW
-  doi: 10.5281/zenodo.5874874
+  doi: 10.32614/CRAN.package.lamW
   notes: R package version 2.2.3
 repository: https://CRAN.R-project.org/package=lamW
 repository-code: https://github.com/aadler/lamW
 url: https://github.com/aadler/lamW
-date-released: '2023-11-28'
+date-released: '2024-06-16'
 contact:
 - family-names: Adler
   given-names: Avraham
   email: Avraham.Adler@gmail.com
   orcid: https://orcid.org/0000-0002-3039-0703
+
