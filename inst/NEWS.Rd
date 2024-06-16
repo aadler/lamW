@@ -16,6 +16,7 @@
     \itemize{
       \item Updated \acronym{DOI} to native \acronym{CRAN}.
       \item Minor changes to C code for consistency.
+      \item Updated package metadata unit tests.
     }
   }
 }
