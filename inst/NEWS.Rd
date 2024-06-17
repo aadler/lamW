@@ -6,6 +6,15 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
+\section{Version 2.2.4.9000 (2024-07-16)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Corrected and updated \file{README}.
+    }
+  }
+}
+
+
 \section{Version 2.2.4 (2024-06-16)}{
   \subsection{Added}{
     \itemize{
