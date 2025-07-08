@@ -7,7 +7,7 @@ title: Package lamW
 [![](http://cranlogs.r-pkg.org/badges/last-month/lamW)](https://cran.r-project.org/package=lamW)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/lamW)](https://cran.r-project.org/package=lamW)
 [![R-CMD-check](https://github.com/aadler/lamW/workflows/R-CMD-check/badge.svg)](https://github.com/aadler/lamW/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/aadler/lamW/graph/badge.svg?token=2wxFx5ObKY)](https://codecov.io/gh/aadler/lamW)
+[![codecov](https://codecov.io/gh/aadler/lamW/graph/badge.svg?token=2wxFx5ObKY)](https://app.codecov.io/gh/aadler/lamW)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/2022/badge)](https://bestpractices.coreinfrastructure.org/projects/2022)
 <!-- badges: end -->
 
