@@ -21,7 +21,7 @@ if (Sys.info()["nodename"] == "HOMEDESKTOP") {
   cit <- toBibtex(citation(thisPkg))
   lct <- length(cit)
   nws <- news(package = thisPkg)
-  lnws <- length(nws)
+  lnw <- length(nws)
 
   # Test CITATION has most recent package version
   expect_true(any(grepl(pV, cit, fixed = TRUE)))
@@ -36,5 +36,5 @@ if (Sys.info()["nodename"] == "HOMEDESKTOP") {
   expect_false(any(vapply(otrPkgs, grepl, logical(lct), x = cit, fixed = TRUE)))
 
   # Test that NEWS doesn't contain the name of any other of my packages
-  expect_false(any(vapply(otrPkgs, grepl, logical(lnws),x = nws, fixed = TRUE)))
+  expect_false(any(vapply(otrPkgs, grepl, logical(lnw), x = nws, fixed = TRUE)))
 }
