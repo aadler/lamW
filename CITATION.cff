@@ -10,6 +10,9 @@ license: BSD-2-Clause
 title: 'lamW: Lambert-W Function'
 version: 2.2.5
 doi: 10.32614/CRAN.package.lamW
+identifiers:
+- type: doi
+  value: 10.32614/CRAN.package.lamW
 abstract: Implements both real-valued branches of the Lambert-W function (Corless
   et al, 1996) <https://doi.org/10.1007/BF02124750> without the need for installing
   the entire GSL.
@@ -33,7 +36,7 @@ preferred-citation:
 repository: https://CRAN.R-project.org/package=lamW
 repository-code: https://github.com/aadler/lamW
 url: https://github.com/aadler/lamW
-date-released: '2024-07-16'
+date-released: '2025-07-08'
 contact:
 - family-names: Adler
   given-names: Avraham

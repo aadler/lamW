@@ -6,10 +6,16 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
-\section{Version 2.2.5 (2024-07-16)}{
+\section{Version 2.2.5 (2025-07-08)}{
   \subsection{Fixed}{
     \itemize{
       \item Corrected and updated \file{README} and \file{CITATION}.
+    }
+  }
+  \subsection{Changed}{
+    \itemize{
+      \item Use \file{Rmath} instead of \file{cmath}.
+      \item Update internal tests.
     }
   }
 }
