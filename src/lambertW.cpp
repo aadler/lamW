@@ -232,7 +232,7 @@ struct LWm1 : public Worker
 NumericVector lambertW0_C(NumericVector x) {
   // allocate the output vector
   NumericVector output(x.size());
-  // Lambert W0 functor (pass input and output matrixes)
+  // Lambert W0 functor (pass input and output matrices)
   LW0 LW0(x, output);
   // call parallelFor to do the work
   parallelFor(0, x.length(), LW0, 4);
@@ -244,7 +244,7 @@ NumericVector lambertW0_C(NumericVector x) {
 NumericVector lambertWm1_C(NumericVector x) {
   // allocate the output vector
   NumericVector output(x.size());
-  // Lambert Wm1 functor (pass input and output matrixes)
+  // Lambert Wm1 functor (pass input and output matrices)
   LWm1 LWm1(x, output);
   // call parallelFor to do the work
   parallelFor(0, x.length(), LWm1, 4);
