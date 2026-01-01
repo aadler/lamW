@@ -14,6 +14,11 @@ expect_equal(lambertW0(principleBranchTests), principleBranchAnswers,
 expect_equal(lambertWm1(secondaryBranchTests), secondaryBranchAnswers,
              tolerance = tol)
 
+# Specific for CodeCov
+x <- 200
+z <- x * exp(x)
+expect_equal(x, lambertW0(z), tolerance = tol)
+
 # Test that function works properly for larger numbers
 expect_equal(lambertW0(1000) * exp(lambertW0(1000)), 1000, tolerance = tol)
 
