@@ -6,6 +6,14 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
+\section{Version 2.2.6 (2026-01-07)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Minor corrections to code and comments. No user-facing changes.
+    }
+  }
+}
+
 \section{Version 2.2.5 (2025-07-08)}{
   \subsection{Fixed}{
     \itemize{
