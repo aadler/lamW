@@ -6,6 +6,15 @@
 \title{NEWS file for the lamW package}
 \encoding{UTF-8}
 
+\section{Version 2.2.7 (2026-03-26)}{
+  \subsection{Fixed}{
+    \itemize{
+      \item Rebuilt package at request of \acronym{CRAN} due to changes in
+      \pkg{Rcpp}.
+    }
+  }
+}
+
 \section{Version 2.2.6 (2026-01-07)}{
   \subsection{Fixed}{
     \itemize{
