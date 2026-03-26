@@ -210,7 +210,7 @@
   }
   \subsection{Changed}{
     \itemize{
-      \item Reduced max interations in some loops as convergence acheived more
+      \item Reduced max iterations in some loops as convergence achieved more
       quickly.
       \item Refactored old nomenclature.
       \item Cleaned code for whitespace and unnecessary comments.
