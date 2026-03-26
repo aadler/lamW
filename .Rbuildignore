@@ -7,3 +7,5 @@
 ^SECURITY.md$
 ^.covrignore$
 ^inst/WORDLIST$
+^\.positai$
+^\.claude$
